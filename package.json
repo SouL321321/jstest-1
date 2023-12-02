@@ -1,0 +1,19 @@
+{
+  "name": "jstest-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^2.2.0",
+    "chalk": "^4.1.2",
+    "discord-api-types": "^0.37.65",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1"
+  }
+}
