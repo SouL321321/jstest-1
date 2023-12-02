@@ -1,1 +1,6 @@
+# dependencies
+/nodule_modules
+
+
+# Keys
 .env
