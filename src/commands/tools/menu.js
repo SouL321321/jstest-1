@@ -12,17 +12,17 @@ module.exports = {
   async execute(interaction, client) {
     const menu = new StringSelectMenuBuilder()
       .setCustomId(`sub-menu`)
-      .setMinValues(1)
+      .setMinValues(0)
       .setMaxValues(1)
       .setOptions(
         new StringSelectMenuOptionBuilder(
           {
             label: `Option #1`,
-            value: ``,
+            value: `https://discord.gg/TRSjYBvj`,
           },
           {
-            label: `Option #1`,
-            value: ``,
+            label: `Option #2`,
+            value: `https://discord.gg/HxxF5dzD`,
           },
         )
       );
