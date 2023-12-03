@@ -16,7 +16,7 @@ module.exports = (client) => {
       {
         type: ActivityType.Listening,
         text: "in overthinking🗯",
-        status: "online",
+        status: "dnd",
       },
     ];
 
