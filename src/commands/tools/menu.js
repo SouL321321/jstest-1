@@ -18,7 +18,11 @@ module.exports = {
         new StringSelectMenuOptionBuilder(
           {
             label: `Option #1`,
-            value: `https://discord.gg/yWgFknNc`,
+            value: ``,
+          },
+          {
+            label: `Option #1`,
+            value: ``,
           },
         )
       );
