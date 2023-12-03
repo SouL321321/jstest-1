@@ -1,8 +1,11 @@
+const { PresenceUpdateStatus } = require("discord.js");
+
 module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    setInterval(client.pickPresence, 10 * 1000);
+    setTimeout(client.pickPresence, 6000);
     console.log(`Ready! 🍀 ${client.user.tag} is logged nd online!✅`);
   },
 };
+

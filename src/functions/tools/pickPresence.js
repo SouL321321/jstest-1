@@ -2,33 +2,16 @@ const { ActivityType } = require("discord.js");
 
 module.exports = (client) => {
   client.pickPresence = async () => {
-    const options = [
-      {
-        type: ActivityType.Watching,
-        text: "in overthinking🗯",
-        status: "dnd",
-      },
-      {
-        type: ActivityType.Streaming,
-        text: "in overthinking🗯",
-        status: "idle",
-      },
-      {
-        type: ActivityType.Listening,
-        text: "in overthinking🗯",
-        status: "dnd",
-      },
-    ];
-
-    const option = Math.floor(Math.random() * options.length);
-
-    client.user.setPresence({
-      activities: [
-        {
-          name: options[option].text,
-          type: options[option].type,
-        }],
-      status: options[option].status,
-    });
+      const date = new Date();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}`;
+      const activity = {
+        name: `⌚Time: ${formattedTime}⌚`,
+        type: ActivityType.DEFAULT,
+      };
+      client.user.setActivity(activity);
   };
 };

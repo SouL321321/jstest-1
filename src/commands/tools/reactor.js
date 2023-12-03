@@ -10,12 +10,12 @@ module.exports = {
       fetchReply: true
     });
 
-    const filter = (reaction, user) => {
+    const filter = (user) => {
       return user.id == interaction.user.id;
     };
 
     message
-      .awaitReactions({ filter, max: 3, time: 10000, errors: ["time"] })
+      .awaitReactions({ filter, max: 3, time: 10000, errors: ["time ended"] })
       .then((collected) => console.log(collected.size))
       .catch((collected) => {
         console.log(

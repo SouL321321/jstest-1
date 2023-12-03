@@ -22,7 +22,7 @@ module.exports = {
       })
       .catch(console.error);
 
-    //Qua ha il ruolo
+    //Here u will have role ig
     if (roles.cache.has("ROLE_ID")) {
       await interaction.deferReply({
         fetchReply: true,
