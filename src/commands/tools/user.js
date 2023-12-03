@@ -9,16 +9,16 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setColor(0x8f00ff)
       .setTitle("💁‍♂️Username Info!💁‍♀️")
-      .setDescription("✨USER!✨")
+      .setDescription("This beautiful guy is u✨")
       .setImage(user.displayAvatarURL())
       .addFields([
         {
-          name: `🔠Username🔠`,
+          name: `Username🔠`,
           value: user.username,
           inline: false,
         },
         {
-          name: `🔢UserID🔢`,
+          name: `User-ID🔢`,
           value: user.id,
           inline: false,
         },
