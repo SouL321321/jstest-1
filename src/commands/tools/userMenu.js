@@ -15,7 +15,7 @@ module.exports = {
       .setCustomId(`user-menu`)
       .setPlaceholder("Select multiple users.")
       .setMinValues(1)
-      .setMaxValues(5);
+      .setMaxValues(20);
 
     const row = new ActionRowBuilder().addComponents(userMenu);
     await interaction.reply({
