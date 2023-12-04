@@ -12,7 +12,7 @@ module.exports = {
     const snakeRepresentation = "🐍".repeat(snakeLength);
 
     // Create a message with the name, snake length, and graphical representation
-    const message = `Your snake is **${snakeLength} cm long!**\n${snakeRepresentation}`;
+    const message = `Your snake is **${snakeLength} cm long!**👀\n${snakeRepresentation}`;
 
     // Send the message
     await interaction.reply(message);
