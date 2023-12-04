@@ -5,17 +5,17 @@ module.exports = (client) => {
     const options = [
       {
         type: ActivityType.Watching,
-        text: "in overthinking🗯",
+        text: "Im stalking u👀",
         status: "dnd",
       },
       {
         type: ActivityType.Streaming,
-        text: "in overthinking🗯",
+        text: "in afk-zone (random stuff)🥮",
         status: "idle",
       },
       {
         type: ActivityType.Listening,
-        text: "in overthinking🗯",
+        text: "Do not disturb me🛑 ty",
         status: "dnd",
       },
     ];
