@@ -12,7 +12,7 @@ module.exports = {
     const menu = new StringSelectMenuBuilder()
       .setCustomId(`sub-menu`)
       .setMinValues(1)
-      .setMaxValues(3)
+      .setMaxValues(4)
       .addOptions([
         {
           label: `Option #1`,
@@ -26,10 +26,14 @@ module.exports = {
           label: `Option  #3`,
           value: `https://discord.com/developers/docs/intro`,
         },
+        {
+          label: `Option #4`,
+          value: `./index.html`,
+        },
       ]);
 
-      await interaction.reply({
-        components: [new ActionRowBuilder().addComponents(menu)]
-      });
+    await interaction.reply({
+      components: [new ActionRowBuilder().addComponents(menu)],
+    });
   },
 };

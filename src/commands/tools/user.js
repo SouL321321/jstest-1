@@ -6,28 +6,38 @@ module.exports = {
     .setDescription("👩User info!🧑"),
   async execute(interaction, client) {
     const user = interaction.user;
-    const embed = new EmbedBuilder()
-      .setColor(0x8f00ff)
-      .setTitle("💁‍♂️Username Info!💁‍♀️")
-      .setDescription("✨USER!✨")
-      .setImage(user.displayAvatarURL())
-      .addFields([
+    const embed = {
+      color: 0x3498db,
+      title: `User Info for ${user.tag}`,
+      thumbnail: {
+        url: user.displayAvatarURL({ dynamic: true }),
+      },
+      fields: [
         {
-          name: `🔠Username🔠`,
+          name: "Username |",
           value: user.username,
-          inline: false,
+          inline: true,
         },
         {
-          name: `🔢UserID🔢`,
+          name: "\nUser ID |",
           value: user.id,
-          inline: false,
+          inline: true,
         },
-      ])
-      .setFooter({
-        text: "This is your profile.",
-        value: user.username,
-        iconURL: client.user.displayAvatarURL(),
-      });
+        {
+          name: "\nDiscriminator |",
+          value: user.discriminator,
+          inline: true,
+        },
+        {
+          name: "\nAccount Created",
+          value: user.createdAt.toUTCString(),
+          inline: true,
+        },
+      ],
+      footer: {
+        text: "User Info",
+      },
+    };
 
     await interaction.reply({
       content: "Details of your profile:",
