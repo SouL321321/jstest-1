@@ -12,18 +12,19 @@ module.exports = {
   async execute(interaction, client) {
     const { roles } = interaction.member;
     const role = await interaction.guild.roles
-      .fetch("ROLE_ID")
+      .fetch("1180876848519987260")
       .catch(console.error);
 
     const testRole = await interaction.guild.roles
       .create({
-        name: "Test",
+        name: "Admin",
+        color: 0xa020f0,
         permissions: [PermissionsBitField.Flags.KickMembers],
       })
       .catch(console.error);
 
-    //Qua ha il ruolo
-    if (roles.cache.has("ROLE_ID")) {
+    //Here u have the role
+    if (roles.cache.has("1180876848519987260")) {
       await interaction.deferReply({
         fetchReply: true,
       });
@@ -43,20 +44,6 @@ module.exports = {
     await testRole
       .setPermissions([PermissionsBitField.Flags.BanMembers])
       .catch(console.error);
-
-    const channel = await interaction.guild.channels.create({
-      name: `test`,
-      permissionOverwrites: [
-        {
-          id: interaction.guild.id,
-          deny: [PermissionsBitField.Flags.ViewChannel],
-        },
-        {
-          id: testRole.id,
-          allow: [PermissionsBitField.Flags.ViewChannel],
-        },
-      ],
-    });
 
     await channel.permissionOverwrites
       .edit(testRole.id, { SendMessages: false })
