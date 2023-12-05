@@ -8,7 +8,7 @@ module.exports = {
     // Limit the snake length to a maximum of 40 cm
     const snakeLength = Math.min(Math.floor(Math.random() * 40) + 1, 40);
 
-    // Create a graphical representation of the snake length using emoji (e.g., 🐍)
+    // Create a graphical representation of the snake length using emoji (🐍)
     const snakeRepresentation = "🐍".repeat(snakeLength);
 
     // Create a message with the name, snake length, and graphical representation
