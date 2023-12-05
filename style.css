@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @font-face {
     font-family: spincycle;
     src: url(./fonts/spincycle.otf);
@@ -35,21 +36,21 @@ header {
     justify-content:center;
   }
   #logo {
-    width:90px;
+    width:80px;
     transition: all 0.5s ease-out;
     
   }
 
-  h1 {
+  #text-logo {
     display: block;
-    width: 100%;
+    width: 90%;
     color: #1278da;
     font-size: 40px;
     text-align: center;
     font-family: spincycle3d;
   }
 
-  h1:hover {
+  #text-logo:hover {
     cursor: pointer;
   }
   
@@ -87,10 +88,59 @@ header {
   
   main {
     padding-top: 190px;
+    
   }
   
   section {
     width: 80%;
     margin: 0 auto 10px auto;
     max-width: 600px;
+  }
+
+  #slogan {
+    display: block;
+    width: 100%;
+    color: #1278da;
+    font-size: 40px;
+    text-align: center;
+    font-family: anton;
+  }
+
+  #slogan:hover {
+    /* cursor: pointer; */
+  }
+
+  #discord-color {
+    color: #6A5ACD;
+  }
+
+  #logo-font {
+    font-family: spincycle;
+  }
+
+  #slogan-p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 30px;
+    font-size: 18px;
+    text-align: center;
+  }
+  #add-discord:link, #add-discord:visited {
+    background-color:#5a70c0;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 15px;
+  }
+
+  #add-discord:hover, #add-discord:active {
+    background-color:#7493d0;
+  }
+
+  #link-section {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
   }
