@@ -3,13 +3,20 @@ const { databaseToken } = process.env;
 const { connect } = require("mongoose");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const fs = require("fs");
-const { data } = require("./commands/tools/permission");
 
-const client = new Client({ intents: 32767 });
+
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.MessageContent,
+  ],
+});
 client.commands = new Collection();
 client.buttons = new Collection();
 client.selectMenus = new Collection();
 client.commandArray = [];
+
 
 const functionFolders = fs.readdirSync(`./src/functions`);
 for (const folder of functionFolders) {
