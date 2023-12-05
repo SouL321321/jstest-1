@@ -18,6 +18,9 @@
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
     "mongodb": "^6.3.0",
-    "mongoose": "^8.0.2"
+    "mongoose": "^8.0.2",
+    "node-fetch": "^3.3.2",
+    "wikijs": "^6.4.1",
+    "wikipedia": "^2.1.1"
   }
 }
