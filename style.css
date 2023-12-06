@@ -153,7 +153,7 @@ header {
     padding-right:5px;
   }
 
-  .introduction-section1 {
+  .introduction-section {
     /* padding-left: 0px; */
     padding-top:100px;
     width: 100%;
@@ -167,10 +167,12 @@ header {
   .introduction-img{
     width: 50%;
     border-radius: 10px;
+    padding: 1px;
   }
 
   .introduction-p {
+  /* display: inline-block; */
+  /* height: 200px; */
   padding-left: 30px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  
