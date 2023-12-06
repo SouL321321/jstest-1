@@ -13,8 +13,15 @@ module.exports = (client) => {
       const { commands, commandArray } = client;
       for (const file of commandFiles) {
         const command = require(`../../commands/${folder}/${file}`);
-        commands.set(command.data.name, command);
-        commandArray.push(command.data.toJSON());
+
+        if (command.data && command.data.name) {
+          commands.set(command.data.name, command);
+          commandArray.push(command.data.toJSON());
+        } else {
+          console.error(
+            `Command in file ${file} is missing required properties.`
+          );
+        }
       }
     }
 
