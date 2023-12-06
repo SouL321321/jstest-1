@@ -135,14 +135,20 @@ header {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 15px;
     box-shadow: 1px 3px 1px skyblue;
+    transition: all 0.3s ease-out;
   }
 
   #add-discord:hover, #add-discord:active {
     background-color:#7493d0;
+    scale:1.03;
   }
 
   #link-section {
     display: flex;
     justify-content: center;
     padding: 25px;
+  }
+
+  .fa-discord {
+    padding-right:5px;
   }
