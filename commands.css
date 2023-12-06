@@ -98,3 +98,29 @@ header {
   p {
     color: white;
   }
+
+  footer {
+    height: 40px;
+    margin-top: 40px;
+    display: flex;
+    background-color: hsl(210 40% 20%);
+    align-items: center;
+    justify-content: center;
+  }
+
+  footer ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding-inline-start: 0;
+    margin-block: 0;
+    height: 100%;
+  }
+
+  footer ul li {
+    font-family: Anton;
+    color:#dfdfe2 ;
+    margin: 0 0.1rem;
+    padding: 0.2rem;
+    display: block;
+  }
