@@ -104,6 +104,7 @@ header {
     font-size: 40px;
     text-align: center;
     font-family: anton;
+    text-shadow: 1px 3px 1px silver;
   }
 
   #slogan:hover {
@@ -121,7 +122,7 @@ header {
   #slogan-p {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding-top: 30px;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
   }
   #add-discord:link, #add-discord:visited {
@@ -133,6 +134,7 @@ header {
     display: inline-block;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 15px;
+    box-shadow: 1px 3px 1px skyblue;
   }
 
   #add-discord:hover, #add-discord:active {
