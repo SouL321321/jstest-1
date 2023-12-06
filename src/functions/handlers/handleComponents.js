@@ -1,4 +1,4 @@
-const { readdirSync, readdir } = require("fs");
+const { readdirSync } = require("fs");
 
 module.exports = (client) => {
   client.handleComponents = async () => {
