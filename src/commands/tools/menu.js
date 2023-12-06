@@ -28,7 +28,7 @@ module.exports = {
         },
         {
           label: `Option #4`,
-          value: `./index.html`,
+          value: `https://raw.githubusercontent.com/SouL321321/jstest-1/main/index.html`,
         },
       ]);
 
