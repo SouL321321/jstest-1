@@ -94,7 +94,7 @@ header {
   section {
     width: 80%;
     margin: 0 auto 10px auto;
-    max-width: 600px;
+    max-width: 900px;
   }
 
   #slogan {
@@ -152,3 +152,25 @@ header {
   .fa-discord {
     padding-right:5px;
   }
+
+  .introduction-section1 {
+    /* padding-left: 0px; */
+    padding-top:100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* flex-wrap: wrap; */
+    /* margin-left: 100px; */
+  }
+
+  .introduction-img{
+    width: 50%;
+    border-radius: 10px;
+  }
+
+  .introduction-p {
+  padding-left: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
