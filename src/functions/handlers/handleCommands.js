@@ -3,6 +3,8 @@ const { Routes } = require("discord-api-types/v10");
 const fs = require("fs");
 
 module.exports = (client) => {
+  client.commandArray = client.commandArray || [];
+
   client.handleCommands = async () => {
     const commandFolders = fs.readdirSync(`./src/commands`);
     for (const folder of commandFolders) {
@@ -27,7 +29,7 @@ module.exports = (client) => {
 
     const clientId = process.env.CLIENT_ID;
     const guildId = process.env.GUILD_ID;
-    const rest = new REST({ version: 10 }).setToken(process.env.token);
+    const rest = new REST({ version: 10 }).setToken(process.env.TOKEN);
     try {
       console.log("Started refreshing application (/) commands.");
 
@@ -38,7 +40,9 @@ module.exports = (client) => {
         .then(() =>
           console.log("Successfully reloaded application (/) commands.")
         )
-        .catch(console.error);
+        .catch((error) => {
+          console.error(`Error reloading commands: ${error.message}`);
+        });
     } catch (error) {
       console.error(error);
     }

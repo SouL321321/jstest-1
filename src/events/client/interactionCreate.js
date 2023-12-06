@@ -12,7 +12,7 @@ module.exports = {
       } catch (error) {
         console.error(error);
         await interaction.reply({
-          content: `Smt went wrong with executing commands...`,
+          content: `Something went wrong with executing commands...`,
           ephemeral: true,
         });
       }
@@ -20,12 +20,12 @@ module.exports = {
       const { buttons } = client;
       const { customId } = interaction;
       const button = buttons.get(customId);
-      if (!button) return new Error('There is no code for this button!');
+      if (!button) return new Error("There is no code for this button!");
 
       try {
         await button.execute(interaction, client);
       } catch (error) {
-        console.error(err);
+        console.error(error);
       }
     } else if (interaction.isSelectMenu()) {
       const { selectMenus } = client;
