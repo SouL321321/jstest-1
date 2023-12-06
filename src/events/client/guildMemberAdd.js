@@ -16,7 +16,7 @@ module.exports = {
       const channel = await member.guild.channels.fetch(welcomeChannelId);
 
       await channel.send({
-        content: `<@${member.id}>***Welcome*** to the server, **${member.user.username}**🎉! ***You are the*** **${totalMembers}** member. Follow the **rules** and have fun here! 🥳\n\n\n\n\n\n\n`,
+        content: `<@${member.id}>***Welcome*** to the server, **${member.user.username}**🎉! ***We are now*** **${totalMembers}** member. Follow the **rules** and have fun here! 🥳\n\n\n\n\n\n\n`,
         files: [{
           attachment: member.user.displayAvatarURL({ format: "png", size: 512, background: 0x333333 }),
           name: `${member.id}-welcome.png`,

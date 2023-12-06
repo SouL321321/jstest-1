@@ -16,7 +16,7 @@ module.exports = (client) => {
 
         if (command.data && command.data.name) {
           commands.set(command.data.name, command);
-          commandArray.push(command.data.toJSON());
+          commandArray.push(command.data);
         } else {
           console.error(
             `Command in file ${file} is missing required properties.`
@@ -31,9 +31,14 @@ module.exports = (client) => {
     try {
       console.log("Started refreshing application (/) commands.");
 
-      await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-        body: client.commandArray,
-      });
+      await rest
+        .put(Routes.applicationGuildCommands(clientId, guildId), {
+          body: client.commandArray,
+        })
+        .then(() =>
+          console.log("Successfully reloaded application (/) commands.")
+        )
+        .catch(console.error);
 
       console.log("Sucessfully reloaded application (/) commands.");
     } catch (error) {
