@@ -100,27 +100,41 @@ header {
   }
 
   footer {
-    height: 40px;
+    width: 100%;
+    height: 50px;
     margin-top: 40px;
     display: flex;
     background-color: hsl(210 40% 20%);
     align-items: center;
-    justify-content: center;
+    justify-content:space-between;
   }
 
   footer ul {
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
     padding-inline-start: 0;
     margin-block: 0;
     height: 100%;
+    display: flex;
+
   }
 
   footer ul li {
     font-family: Anton;
     color:#dfdfe2 ;
-    margin: 0 0.1rem;
-    padding: 0.2rem;
-    display: block;
   }
+
+  #footer-container {
+    width: 100%;
+}
+
+.li-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a:hover {
+  background-color:#dfdfe2 ;
+    color: #1b1b32;
+}
