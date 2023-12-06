@@ -14,10 +14,14 @@
     box-sizing:border-box;
 }
 
+body {
+  background-color: hsl(200 20% 10%);
+}
+
 header {
     width: 100%;
-    height: 100px;
-    background-color: whitesmoke;
+    height: 80px;
+    background-color:hsl(236, 37%, 25%);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,18 +40,19 @@ header {
     justify-content:center;
   }
   #logo {
-    width:80px;
-    transition: all 0.5s ease-out;
-    
+    width:60px;    
   }
 
   #text-logo {
     display: block;
     width: 90%;
-    color: #1278da;
     font-size: 40px;
     text-align: center;
     font-family: spincycle3d;
+
+    background: -webkit-linear-gradient(rgb(0, 183, 255), rgb(226, 187, 187));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
   }
 
   #text-logo:hover {
@@ -69,15 +74,15 @@ header {
   }
   
   nav > ul > li {
-    color: #1b1b32;
+    color:#dfdfe2 ;
     margin: 0 0.2rem;
     padding: 0.2rem;
     display: block;
   }
   
   nav > ul > li:hover {
-    background-color: #1b1b32;
-    color:#dfdfe2 ;
+    background-color:#dfdfe2 ;
+    color: #1b1b32;
     cursor: pointer;
   }
   
@@ -87,7 +92,7 @@ header {
   }
   
   main {
-    padding-top: 190px;
+    padding-top: 150px;
     
   }
   
@@ -100,19 +105,14 @@ header {
   #slogan {
     display: block;
     width: 100%;
-    color: #1278da;
     font-size: 40px;
     text-align: center;
     font-family: anton;
-    text-shadow: 1px 3px 1px silver;
-  }
+    /* text-shadow: 1px 3px 1px black; */
 
-  #slogan:hover {
-    /* cursor: pointer; */
-  }
-
-  #discord-color {
-    color: #6A5ACD;
+    background: -webkit-linear-gradient(rgb(0, 183, 255), rgb(226, 187, 187));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
   }
 
   #logo-font {
@@ -121,13 +121,14 @@ header {
 
   #slogan-p {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 30px;
+    padding-top: 40px;
     font-size: 16px;
     text-align: center;
+    color: white;
   }
   #add-discord:link, #add-discord:visited {
     background-color:#5a70c0;
-    color: white;
+    color: whitesmoke;
     padding: 14px 25px;
     text-align: center;
     text-decoration: none;
@@ -146,7 +147,7 @@ header {
   #link-section {
     display: flex;
     justify-content: center;
-    padding: 25px;
+    padding: 40px;
   }
 
   .fa-discord {
@@ -154,25 +155,27 @@ header {
   }
 
   .introduction-section {
-    /* padding-left: 0px; */
-    padding-top:100px;
+    padding-top:60px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* flex-wrap: wrap; */
-    /* margin-left: 100px; */
   }
 
-  .introduction-img{
+  .introduction-img {
     width: 50%;
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 1px;
+    box-shadow: -3px -3px 4px wheat;
+  }
+
+  .introduction-img:hover {
+    box-shadow: -3px -3px 8px wheat;
+    transition: all 0.1s ease-out;
   }
 
   .introduction-p {
-  /* display: inline-block; */
-  /* height: 200px; */
-  padding-left: 30px;
+  padding-left: 50px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: whitesmoke;
   }
