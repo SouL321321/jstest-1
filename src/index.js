@@ -13,6 +13,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessageTyping,
     GatewayIntentBits.GuildIntegrations,
     GatewayIntentBits.GuildInvites,
+    GatewayIntentBits.GuildMessageReactions
   ],
 });
 client.commands = new Collection();
