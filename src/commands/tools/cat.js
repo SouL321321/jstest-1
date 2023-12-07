@@ -12,10 +12,15 @@ module.exports = {
       );
       const catImageUrl = response.data[0].url;
 
-      await interaction.reply({
+      const message =  await interaction.reply({
         content: "Here is a cat🐈:",
         files: [catImageUrl],
+        fetchReply: true,
       });
+
+      await message.react("😍");
+      await message.react("💗");
+      await message.react("🐱");
     } catch (error) {
       console.error("Error while retrieving cat image:", error);
       await interaction.reply(
