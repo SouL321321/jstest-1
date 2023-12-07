@@ -2,7 +2,7 @@ const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v10");
 const fs = require("fs");
 
-module.exports = (client) => {
+module.exports = (client, interaction) => {
   client.commandArray = client.commandArray || [];
 
   client.handleCommands = async () => {
@@ -20,6 +20,12 @@ module.exports = (client) => {
           commands.set(command.data.name, command);
           commandArray.push(command.data);
         } else {
+          commands.forEach((command) => {
+            options.push({
+              label: command.name,
+              value: command.name,
+            });
+          });
           console.error(
             `Command in file ${file} is missing required properties.`
           );
