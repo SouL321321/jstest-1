@@ -96,9 +96,56 @@ header {
     color: white;
   }
 
-  p {
-    color: white;
+  #title-text {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: -webkit-linear-gradient(rgb(255, 233, 233), rgb(164, 229, 103));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+  padding: 10px;
+  text-shadow: 1px 1px 10px teal;
   }
+
+  #text-guildguru {
+    font-family: spincycle3d;
+    background: -webkit-linear-gradient(rgb(0, 183, 255), rgb(226, 187, 187));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+  }
+
+  #title-p {
+    text-align: center;
+    font-size: 18px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-bottom: 50px;
+  }
+
+  #command-description-section{
+    display: flex;
+    justify-content:space-evenly;
+    align-items:center;
+    flex-wrap: wrap;
+  }
+
+  .command {
+  text-align: center;
+  padding: 20px 0 5px 0;
+  font-size: 24px;
+  font-family: Anton;
+  text-shadow: 2px 2px 3px green;
+  }
+
+  .description {
+    text-align: center;
+    padding-bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .command-description {
+    padding:40px;
+  }
+
+
 
   footer {
     width: 100%;
