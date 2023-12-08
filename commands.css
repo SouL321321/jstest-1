@@ -93,6 +93,7 @@ header {
 
   main {
     padding-top: 150px;
+    color: white;
   }
 
   p {
@@ -134,7 +135,10 @@ header {
   align-items: center;
 }
 
-a:hover {
+.button-a:hover {
   background-color:#dfdfe2 ;
     color: #1b1b32;
 }
+
+
+
