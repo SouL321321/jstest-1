@@ -103,7 +103,7 @@ header {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
   padding: 10px;
-  text-shadow: 1px 1px 10px teal;
+  text-shadow: 1px 1px 15px teal;
   }
 
   #text-guildguru {
@@ -145,14 +145,56 @@ header {
     padding:40px;
   }
 
+  #add-server-section {
+    background-color: hsl(220 45% 30%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px 0;
+    margin-top: 60px;
+    }
+
+  #add-discord-bottom:link, #add-discord-bottom:visited {
+    background-color:#5a70c0;
+    color: whitesmoke;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 10px;
+    border: 1px solid #1b1b32;
+    transition: all 0.3s ease-out;
+  }
+
+  #add-discord-bottom:hover, #add-discord-bottom:active {
+    background-color:#7493d0;
+  }
+
+  .fa-discord {
+    padding-right:5px;
+  }
+
+  #invite-us {
+    font-size: 30px;
+    padding: 10px;
+    color: #dfdfe2;
+    font-family: Anton;
+  }
+
+  #alt-invite-us {
+    padding: 0 10px 10px 10px;
+    font-size: 20px;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
 
   footer {
     width: 100%;
-    height: 50px;
-    margin-top: 40px;
+    height: 70px;
     display: flex;
-    background-color: hsl(210 40% 20%);
+    background-color: hsl(200 20% 10%);
     align-items: center;
     justify-content:space-between;
   }
