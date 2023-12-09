@@ -13,7 +13,7 @@ module.exports = {
       const dogImageUrl = response.data[0].url;
 
       const sentMessage = await interaction.reply({
-        content: "Here is a dog🐕:",
+        content: "Here's a dog🐕",
         files: [dogImageUrl],
         fetchReply: true
       });
