@@ -14,7 +14,7 @@ module.exports = {
       const catImageUrl = response.data[0].url;
 
       const message = await interaction.reply({
-        content: "Here is a cat 🐈:",
+        content: "Here's a cat 🐈",
         files: [{ attachment: catImageUrl, name: "cat.jpg" }],
         fetchReply: true,
       });
