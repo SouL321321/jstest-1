@@ -95,6 +95,8 @@ header {
     padding-top: 150px;
     
   }
+
+  /* SECTIONS */
   
   section {
     width: 80%;
@@ -257,4 +259,114 @@ header {
 .button-a:hover {
   background-color:#dfdfe2 ;
     color: #1b1b32;
+}
+
+
+@media screen and (max-width: 750px) {
+  
+  header {
+    height: 100px;
+  }
+
+  nav > ul {
+    flex-direction: column;
+  }
+
+  #add-server-section {
+    padding: 20px;
+  }
+
+  #invite-us {
+    font-size: 25px;
+  }
+
+  #alt-invite-us {
+    display: none;
+  }
+
+  section {
+    width: 100%;
+  }
+
+  .introduction-section {
+  flex-wrap: wrap;
+  }
+
+  .introduction-img {
+    width: 70%;
+  margin: auto;
+  }
+
+  .introduction-p {
+    margin: auto;
+    padding-right: 50px;
+    padding-top: 60px;
+    }
+
+    #slogan {
+      font-size: 35px;
+      padding: 0 10px;
+    }
+
+    #slogan-p {
+      padding: 40px 10px 0 10px;
+    }
+
+
+}
+
+@media screen and (max-width: 550px) {
+  
+  header {
+    height: 110px;
+  }
+
+  nav > ul {
+    flex-direction:column;
+  }
+  nav > ul > li {
+    font-size: 14px;
+  }
+
+  #logo {
+    width: 60px;
+  }
+
+  #text-logo {
+    font-size: 33px;
+  }
+  
+  #invite-us {
+    font-size: 22px;
+  }
+
+  footer ul li {
+    font-size: 14px;
+  }
+
+}
+
+@media screen and (max-width: 400px) {
+  
+
+  #text-logo {
+    display: none;  
+  }
+  
+  #invite-us {
+    font-size: 20px;
+  }
+
+  footer {
+    padding: 60px 0;
+  }
+  footer ul {
+  flex-direction: column;
+  }
+
+  footer ul li {
+    font-size: 15px;
+    padding: 2px 0;
+  }
+
 }
