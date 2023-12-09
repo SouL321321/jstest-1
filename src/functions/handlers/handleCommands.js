@@ -20,12 +20,6 @@ module.exports = (client, interaction) => {
           commands.set(command.data.name, command);
           commandArray.push(command.data);
         } else {
-          commands.forEach((command) => {
-            options.push({
-              label: command.name,
-              value: command.name,
-            });
-          });
           console.error(
             `Command in file ${file} is missing required properties.`
           );
@@ -36,21 +30,17 @@ module.exports = (client, interaction) => {
     const clientId = process.env.CLIENT_ID;
     const guildId = process.env.GUILD_ID;
     const rest = new REST({ version: 10 }).setToken(process.env.TOKEN);
+
     try {
       console.log("Started refreshing application (/) commands.");
 
-      await rest
-        .put(Routes.applicationGuildCommands(clientId, guildId), {
-          body: client.commandArray,
-        })
-        .then(() =>
-          console.log("Successfully reloaded application (/) commands.")
-        )
-        .catch((error) => {
-          console.error(`Error reloading commands: ${error.message}`);
-        });
+      await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+        body: commandArray,
+      });
+
+      console.log("Successfully reloaded application (/) commands.");
     } catch (error) {
-      console.error(error);
+      console.error(`Error reloading commands: ${error.message}`);
     }
   };
 };
