@@ -4,8 +4,8 @@ require("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("random-img")
-    .setDescription("Get a random image"),
+    .setName("landscapes")
+    .setDescription("Get a landscape image"),
 
   async execute(interaction) {
     try {
@@ -36,7 +36,7 @@ module.exports = {
         ],
       });
     } catch (error) {
-      console.error(`Error executing /random-img command: ${error.message}`);
+      console.error(`Error executing /landscapes command: ${error.message}`);
       await interaction.reply("An error occurred while executing the command.");
     }
   },
