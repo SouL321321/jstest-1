@@ -5,6 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("cat")
     .setDescription("Send a random cat image"),
+
   async execute(interaction) {
     try {
       const response = await axios.get(
@@ -12,9 +13,9 @@ module.exports = {
       );
       const catImageUrl = response.data[0].url;
 
-      const message =  await interaction.reply({
-        content: "Here is a cat🐈:",
-        files: [catImageUrl],
+      const message = await interaction.reply({
+        content: "Here is a cat 🐈:",
+        files: [{ attachment: catImageUrl, name: "cat.jpg" }],
         fetchReply: true,
       });
 
