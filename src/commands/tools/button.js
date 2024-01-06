@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("discord-guru")
     .setDescription("Return server GuildGuru!"),
-  async execute(interaction, client) {
+  async execute(interaction) {
     const  button = new ButtonBuilder()
     .setCustomId('ex-button')
     .setLabel(`Click me!`)

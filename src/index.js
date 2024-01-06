@@ -1,17 +1,17 @@
 require("dotenv").config();
-const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const { Client, Collection, IntentsBitField } = require("discord.js");
 const welcomeEvent = require("./events/client/guildMemberAdd");
 const fs = require("fs");
 
 const client = new Client({
   intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMessageTyping,
-    GatewayIntentBits.GuildIntegrations,
-    GatewayIntentBits.GuildInvites,
-    GatewayIntentBits.GuildMessageReactions
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMembers,
+    IntentsBitField.Flags.MessageContent,
+    IntentsBitField.Flags.GuildMessageTyping,
+    IntentsBitField.Flags.GuildIntegrations,
+    IntentsBitField.Flags.GuildInvites,
+    IntentsBitField.Flags.GuildMessageReactions
   ],
   debug: false,
 });
@@ -19,6 +19,7 @@ client.commands = new Collection();
 client.buttons = new Collection();
 client.selectMenus = new Collection();
 client.commandArray = [];
+
 
 const functionFolders = fs.readdirSync(`./src/functions`);
 for (const folder of functionFolders) {
