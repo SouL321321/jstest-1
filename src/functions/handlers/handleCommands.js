@@ -1,24 +1,24 @@
 const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v10");
+const { Routes, Collection } = require("discord.js");
 const fs = require("fs");
 
 module.exports = (client, interaction) => {
-  client.commandArray = client.commandArray || [];
-
   client.handleCommands = async () => {
     const commandFolders = fs.readdirSync(`./src/commands`);
+    client.commands = new Collection();
+    client.commandArray = [];
+
     for (const folder of commandFolders) {
       const commandFiles = fs
         .readdirSync(`./src/commands/${folder}`)
         .filter((file) => file.endsWith(".js"));
 
-      const { commands, commandArray } = client;
       for (const file of commandFiles) {
         const command = require(`../../commands/${folder}/${file}`);
 
         if (command.data && command.data.name) {
-          commands.set(command.data.name, command);
-          commandArray.push(command.data);
+          client.commands.set(command.data.name, command);
+          client.commandArray.push(command.data);
         } else {
           console.error(
             `Command in file ${file} is missing required properties.`
@@ -35,7 +35,7 @@ module.exports = (client, interaction) => {
       console.log("Started refreshing application (/) commands.");
 
       await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-        body: commandArray,
+        body: client.commandArray,
       });
 
       console.log("Successfully reloaded application (/) commands.");
