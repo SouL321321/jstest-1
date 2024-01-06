@@ -2,8 +2,8 @@ const { SlashCommandBuilder, ActionRowBuilder, ButtonStyle, ButtonBuilder } = re
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("button")
-    .setDescription("Return a button!"),
+    .setName("discord-guru")
+    .setDescription("Return server GuildGuru!"),
   async execute(interaction, client) {
     const  button = new ButtonBuilder()
     .setCustomId('ex-button')

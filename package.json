@@ -22,7 +22,7 @@
     "dotenv": "^16.3.1",
     "moment-timezone": "^0.5.43",
     "mongodb": "^6.3.0",
-    "mongoose": "^8.0.2",
+    "mongoose": "^8.0.3",
     "node-fetch": "^3.3.2",
     "openai": "^4.20.1",
     "puppeteer": "^21.6.0",

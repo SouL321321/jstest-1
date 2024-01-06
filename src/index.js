@@ -15,6 +15,7 @@ const client = new Client({
     GatewayIntentBits.GuildInvites,
     GatewayIntentBits.GuildMessageReactions
   ],
+  debug: true,
 });
 client.commands = new Collection();
 client.buttons = new Collection();
