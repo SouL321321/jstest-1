@@ -1,5 +1,4 @@
 require("dotenv").config();
-const { connect } = require("mongoose");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const welcomeEvent = require("./events/client/guildMemberAdd");
 const fs = require("fs");
@@ -35,6 +34,3 @@ client.handleComponents();
 client.handleCommands();
 client.login(process.env.TOKEN);
 client.on(welcomeEvent.name, (...args) => welcomeEvent.execute(...args));
-(async () => {
-  await connect(process.env.DATABASE).catch(console.error);
-})();
