@@ -1,3 +1,7 @@
-# jstest-1
+# GuildGuru - A Discord Bot designed for you
 
-# Have fun with this repository, just one task: do your best! I believe in you, your costance will be the best thing u can have! VAMOS
+<h3>Beyond Boundaries, Beyond Facts, GuildGuru Unleashes Cosmic Harmony! Cat Cuteness, Wiki Wisdom, Welcome Wonders, and Galactic Moderation - All in One Bot!</h3>
+<h3>Elevating safety, mastering moderation and delivering endless fun – your Discord Server perfectly orchestrated by GuildGuru.</h3>
+
+### Contributors : s0ul, ozo
+

@@ -1,5 +1,4 @@
 require("dotenv").config();
-const { databaseToken } = process.env;
 const { connect } = require("mongoose");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const welcomeEvent = require("./events/client/guildMemberAdd");
@@ -15,6 +14,7 @@ const client = new Client({
     GatewayIntentBits.GuildInvites,
     GatewayIntentBits.GuildMessageReactions
   ],
+  debug: false,
 });
 client.commands = new Collection();
 client.buttons = new Collection();
@@ -31,10 +31,10 @@ for (const folder of functionFolders) {
 }
 
 client.handleEvents();
-client.handleCommands();
 client.handleComponents();
+client.handleCommands();
 client.login(process.env.TOKEN);
 client.on(welcomeEvent.name, (...args) => welcomeEvent.execute(...args));
 (async () => {
-  await connect(databaseToken).catch(console.error);
+  await connect(process.env.DATABASE).catch(console.error);
 })();

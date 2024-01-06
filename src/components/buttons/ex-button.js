@@ -4,7 +4,7 @@ module.exports = {
     },
     async execute(interaction, client) {
         await interaction.reply({
-            content: `https://discord.gg/NpYJje43`
+            content: `https://discord.gg/7K6TbJgMYt`
         });
     }
 }
