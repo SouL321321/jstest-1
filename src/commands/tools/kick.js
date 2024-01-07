@@ -14,7 +14,7 @@ module.exports = {
         .setRequired(false)
     ),
 
-  async execute(interaction, client) {
+    async execute (interaction) {
     const target = interaction.options.getUser("target");
     const reason =
       interaction.options.getString("reason") ?? "No reason provided";

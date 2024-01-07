@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("server")
     .setDescription("Return info server!📝"),
-  async execute(interaction, client) {
+    async execute (interaction, client) {
     const guild = interaction.guild;
     const owner = await client.users.fetch(guild.ownerId);
     const embedS = new EmbedBuilder()

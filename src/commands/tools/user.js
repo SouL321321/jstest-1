@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("user")
     .setDescription("👩User info!🧑"),
-  async execute(interaction, client) {
+    async execute (interaction) {
     const user = interaction.user;
     const embed = {
       color: 0x3498db,

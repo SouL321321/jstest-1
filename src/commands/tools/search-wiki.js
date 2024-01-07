@@ -11,7 +11,7 @@ module.exports = {
         .setDescription("Search on Wikipedia")
         .setRequired(true)
     ),
-  async execute(interaction) {
+    async execute (interaction) {
     const query = interaction.options.getString("query");
 
     await interaction.deferReply();

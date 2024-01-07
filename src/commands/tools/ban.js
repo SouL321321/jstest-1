@@ -14,7 +14,7 @@ module.exports = {
         .setRequired(false)
     ),
 
-  async execute(interaction) {
+    async execute (interaction) {
     const targetUser = interaction.options.getUser("target");
     const reason = interaction.options.getString("reason");
 

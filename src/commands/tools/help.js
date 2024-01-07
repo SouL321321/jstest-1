@@ -6,7 +6,7 @@ module.exports = {
     .setName("help")
     .setDescription("Show all available commands"),
 
-  async execute(interaction) {
+    async execute (interaction) {
     try {
       const commands = interaction.client.commands;
 

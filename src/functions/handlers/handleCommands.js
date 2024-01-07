@@ -2,7 +2,7 @@ const { REST } = require("@discordjs/rest");
 const { Routes, Collection } = require("discord.js");
 const fs = require("fs");
 
-module.exports = (client, interaction) => {
+module.exports = (client) => {
   client.handleCommands = async () => {
     const commandFolders = fs.readdirSync(`./src/commands`);
     client.commands = new Collection();

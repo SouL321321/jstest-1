@@ -5,7 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("dog")
     .setDescription("Send a random dog image"),
-  async execute(interaction) {
+    async execute (interaction) {
     try {
       const response = await axios.get(
         "https://api.thedogapi.com/v1/images/search"

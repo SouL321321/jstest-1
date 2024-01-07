@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("snakemeters")
     .setDescription(`Show the name and length of the "snake"👀`),
-  async execute(interaction) {
+    async execute (interaction) {
     // Limit the snake length to a maximum of 40 cm
     const snakeLength = Math.min(Math.floor(Math.random() * 40) + 1, 40);
 

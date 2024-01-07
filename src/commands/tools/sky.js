@@ -7,7 +7,7 @@ module.exports = {
     .setName("sky")
     .setDescription("Get a sky image"),
 
-  async execute(interaction) {
+    async execute (interaction) {
     try {
       const unsplashApiKey = process.env.UNSPLASH_API_KEY;
       const response = await axios.get(

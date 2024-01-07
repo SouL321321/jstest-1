@@ -6,7 +6,7 @@ module.exports = {
     .setName("cat")
     .setDescription("Send a random cat image"),
 
-  async execute(interaction) {
+    async execute (interaction) {
     try {
       const response = await axios.get(
         "https://api.thecatapi.com/v1/images/search"

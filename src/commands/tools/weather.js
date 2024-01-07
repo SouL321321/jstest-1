@@ -13,7 +13,7 @@ module.exports = {
         .setDescription("Enter the location for weather forecast")
         .setRequired(true)
     ),
-  async execute(interaction) {
+    async execute (interaction) {
     try {
       const location = interaction.options.getString("location");
       const apiKey = process.env.WEATHER_KEY;

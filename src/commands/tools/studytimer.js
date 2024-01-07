@@ -25,7 +25,7 @@ module.exports = {
         .addChoices({ name: "Regular", value: "regular" })
     ),
 
-  async execute(interaction) {
+    async execute (interaction) {
     const { options, user, guild } = interaction;
     const studyMinutes = options.getInteger("minutes");
     const mode = options.getString("mode") || "regular";

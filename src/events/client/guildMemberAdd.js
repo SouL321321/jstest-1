@@ -2,7 +2,7 @@ const welcomedMembers = {};
 
 module.exports = {
   name: "guildMemberAdd",
-  async execute(member) {
+  async execute (member) {
     const welcomeChannelId = process.env.WELCOME;
     const totalMembers = member.guild.memberCount;
 
