@@ -8,16 +8,16 @@ module.exports = (client) => {
         text: "Im stalking u👀",
         status: "dnd",
       },
-      {
-        type: ActivityType.Streaming,
-        text: "in afk-zone (random stuff)🥮",
-        status: "idle",
-      },
-      {
-        type: ActivityType.Listening,
-        text: "Do not disturb me🛑 ty",
-        status: "dnd",
-      },
+      // {
+      //   type: ActivityType.Streaming,
+      //   text: "in afk-zone (random stuff)🥮",
+      //   status: "idle",
+      // },
+      // {
+      //   type: ActivityType.Listening,
+      //   text: "Do not disturb me🛑 ty",
+      //   status: "dnd",
+      // },
     ];
 
     const option = Math.floor(Math.random() * options.length);

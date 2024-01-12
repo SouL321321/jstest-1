@@ -13,7 +13,7 @@ const client = new Client({
     IntentsBitField.Flags.GuildInvites,
     IntentsBitField.Flags.GuildMessageReactions
   ],
-  debug: false,
+  debug: true,
 });
 client.commands = new Collection();
 client.buttons = new Collection();
