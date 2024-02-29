@@ -8,7 +8,7 @@ module.exports = {
     .addUserOption((option) =>
       option
         .setName("opponent")
-        .setDescription("The person to play againist")
+        .setDescription("The person to play against")
         .setRequired(true)
     ),
 
