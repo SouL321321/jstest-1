@@ -8,10 +8,11 @@ module.exports = {
     .addUserOption((option) =>
       option
         .setName("opponent")
-        .setDescription("The person to play against")
+        .setDescription("The person to play againist")
         .setRequired(true)
     ),
-  async execute({ interaction }) {
+
+  async execute(interaction) {
     const opponent = interaction.options.getUser("opponent");
 
     const Game = new RockPaperScissors({

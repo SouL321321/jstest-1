@@ -26,17 +26,21 @@ module.exports = (client) => {
         }
       }
     }
-
     const clientId = process.env.CLIENT_ID;
-    const guildId = process.env.GUILD_ID;
     const rest = new REST({ version: 10 }).setToken(process.env.TOKEN);
 
     try {
       console.log("Started refreshing application (/) commands.");
 
-      await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-        body: client.commandArray,
-      });
+      const existingCommands = await rest.get(
+        Routes.applicationCommands(clientId)
+      );
+
+      if (!existingCommands || existingCommands.length === 0) {
+        await rest.put(Routes.applicationCommands(clientId), {
+          body: client.commandArray,
+        });
+      }
 
       console.log("Successfully reloaded application (/) commands.");
     } catch (error) {
