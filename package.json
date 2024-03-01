@@ -4,7 +4,9 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "node ."
+    "test": "node .",
+    "dev": "node .",
+    "start": "node ."
   },
   "keywords": [],
   "author": "",

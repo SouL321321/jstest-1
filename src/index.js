@@ -16,10 +16,7 @@ const client = new Client({
   debug: true,
 });
 client.commands = new Collection();
-client.buttons = new Collection();
-client.selectMenus = new Collection();
 client.commandArray = [];
-
 
 const functionFolders = fs.readdirSync(`./src/functions`);
 for (const folder of functionFolders) {
