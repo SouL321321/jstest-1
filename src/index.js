@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client, Collection, IntentsBitField } = require("discord.js");
+const { Client, IntentsBitField } = require("discord.js");
 const welcomeEvent = require("./events/client/guildMemberAdd");
 const fs = require("fs");
 
@@ -15,8 +15,6 @@ const client = new Client({
   ],
   debug: true,
 });
-client.commands = new Collection();
-client.commandArray = [];
 
 const functionFolders = fs.readdirSync(`./src/functions`);
 for (const folder of functionFolders) {

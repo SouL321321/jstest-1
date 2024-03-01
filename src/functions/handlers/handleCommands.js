@@ -1,5 +1,4 @@
-const { REST } = require("@discordjs/rest");
-const { Routes, Collection } = require("discord.js");
+const { REST, Routes, Collection } = require("discord.js");
 const fs = require("fs");
 
 module.exports = (client) => {
@@ -7,15 +6,12 @@ module.exports = (client) => {
     const commandFolders = fs.readdirSync(`./src/commands`);
     client.commands = new Collection();
     client.commandArray = [];
-
     for (const folder of commandFolders) {
       const commandFiles = fs
         .readdirSync(`./src/commands/${folder}`)
         .filter((file) => file.endsWith(".js"));
-
       for (const file of commandFiles) {
         const command = require(`../../commands/${folder}/${file}`);
-
         if (command.data && command.data.name) {
           client.commands.set(command.data.name, command);
           client.commandArray.push(command.data);
@@ -27,21 +23,13 @@ module.exports = (client) => {
       }
     }
     const clientId = process.env.CLIENT_ID;
+    const guildId = process.env.GUILD_ID;
     const rest = new REST({ version: 10 }).setToken(process.env.TOKEN);
-
     try {
       console.log("Started refreshing application (/) commands.");
-
-      const existingCommands = await rest.get(
-        Routes.applicationCommands(clientId)
-      );
-
-      if (!existingCommands || existingCommands.length === 0) {
-        await rest.put(Routes.applicationCommands(clientId), {
-          body: client.commandArray,
-        });
-      }
-
+      await rest.put(Routes.applicationCommands(clientId), {
+        body: client.commandArray,
+      });
       console.log("Successfully reloaded application (/) commands.");
     } catch (error) {
       console.error(`Error reloading commands: ${error.message}`);

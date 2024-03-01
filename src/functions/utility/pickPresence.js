@@ -2,11 +2,11 @@ const { ActivityType } = require("discord.js");
 
 module.exports = (client) => {
   client.pickPresence = async () => {
-    const serverCount = client.guilds.cache.size;
+    // const serverCount = client.guilds.cache.size;
     const options = [
       {
         type: ActivityType.Watching,
-        text: `actually ${serverCount} servers👀`,
+        text: `/help | Guild Guru`,
         status: "dnd",
       },
       // {
