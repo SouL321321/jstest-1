@@ -1,6 +1,8 @@
 const { readdirSync } = require("fs");
 
 module.exports = (client) => {
+  client.selectMenus = new Map();
+  client.buttons = new Map();
   client.handleComponents = async () => {
     const componentFolders = readdirSync("./src/components");
     for (const folder of componentFolders) {

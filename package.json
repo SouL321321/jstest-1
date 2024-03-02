@@ -19,7 +19,7 @@
     "big.js": "^6.2.1",
     "canvas": "^2.11.2",
     "chalk": "^4.1.2",
-    "discord-api-types": "^0.37.65",
+    "discord-api-types": "^0.37.71",
     "discord-gamecord": "^4.4.1",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
