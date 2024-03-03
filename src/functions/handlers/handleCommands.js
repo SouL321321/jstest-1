@@ -38,11 +38,55 @@ module.exports = (client) => {
       Routes.applicationGuildCommands(clientId, guildId),
       { body: client.commandArray },
     );
-
-    console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-
     rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
     .then(() => console.log('Successfully deleted all guild commands.'))
     .catch(console.error); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+
   }
 };

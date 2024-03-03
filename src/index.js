@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client, IntentsBitField } = require("discord.js");
+const { Client, Events, IntentsBitField } = require("discord.js");
 const welcomeEvent = require("./events/client/guildMemberAdd");
 const fs = require("fs");
 
@@ -11,7 +11,7 @@ const client = new Client({
     IntentsBitField.Flags.GuildMessageTyping,
     IntentsBitField.Flags.GuildIntegrations,
     IntentsBitField.Flags.GuildInvites,
-    IntentsBitField.Flags.GuildMessageReactions
+    IntentsBitField.Flags.GuildMessageReactions,
   ],
   debug: true,
 });

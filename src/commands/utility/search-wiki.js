@@ -35,13 +35,13 @@ module.exports = {
       .setTitle(`Wiki Search: ${result.raw.title}`)
       .setDescription(`\`\`\`${limitedSummary}\`\`\``);
 
-    if (summary.length > limitedSummary.length) {
-      embed.addFields({
-        name: "READ MORE",
-        value: `[Wikipedia Article](${result.raw.fullurl})`,
-      });
-    }
-
-    await interaction.editReply({ embeds: [embed] });
-  },
-};
+      if (summary.length > limitedSummary.length) {
+        embed.addFields({
+          name: "READ MORE",
+          value: `[Wikipedia Article](${result.raw.fullurl})`,
+        });
+      }
+  
+      await interaction.editReply({ embeds: [embed] });
+    },
+  };

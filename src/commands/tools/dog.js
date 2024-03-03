@@ -7,16 +7,15 @@ module.exports = {
     .setDescription("Send a random dog image"),
     async execute (interaction) {
     try {
-      const response = await axios.get(
-        "https://api.thedogapi.com/v1/images/search"
-      );
-      const dogImageUrl = response.data[0].url;
-
+      const response = await axios.get("https://dog.ceo/api/breeds/image/random");
+      const dogImageUrl = response.data.message;
+      
       const sentMessage = await interaction.reply({
         content: "Here's a dog🐕",
         files: [dogImageUrl],
         fetchReply: true
       });
+      
 
       await sentMessage.react("😍");
       await sentMessage.react("💗");

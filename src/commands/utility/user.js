@@ -24,7 +24,7 @@ module.exports = {
           inline: true,
         },
         {
-          name: "\nDiscriminator |",
+          name: "\nDiscriminator ",
           value: user.discriminator,
           inline: true,
         },
