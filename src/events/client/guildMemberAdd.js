@@ -44,7 +44,7 @@ module.exports = {
         .setFooter({
           text: `You are the ${totalMembers}${
             totalMembers === 1 ? "st" : "th"
-          } member of this server!`
+          } member of this server!`,
         });
 
       await channel.send({ embeds: [embed] });

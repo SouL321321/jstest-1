@@ -45,6 +45,17 @@ module.exports = {
 
     try {
       const response = await axios.get(url);
+
+      const rateLimitRemaining = response.headers["x-ratelimit-remaining"];
+      const rateLimitReset = response.headers["x-ratelimit-reset"];
+      let replyMessage = "Retrieved Astronomy Picture of the Day.";
+      if (rateLimitRemaining !== undefined && rateLimitReset !== undefined) {
+        replyMessage += `\nRate limit remaining: ${rateLimitRemaining}`;
+        replyMessage += `\nRate limit reset time: ${new Date(
+          rateLimitReset * 1000
+        )}`;
+      }
+      
       const asteroids = response.data.near_earth_objects;
 
       if (!asteroids || Object.keys(asteroids).length === 0) {
