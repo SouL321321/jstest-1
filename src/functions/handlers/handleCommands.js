@@ -36,57 +36,15 @@ module.exports = (client) => {
     }
     const data = await rest.put(
       Routes.applicationGuildCommands(clientId, guildId),
-      { body: client.commandArray },
+      { body: client.commandArray }
     );
-    rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
-    .then(() => console.log('Successfully deleted all guild commands.'))
-    .catch(console.error); 
+    rest
+      .put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
+      .then(() => console.log("Successfully deleted all guild commands."))
+      .catch(console.error);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-
-  }
+    console.log(
+      `Successfully reloaded ${data.length} application (/) commands.`
+    );
+  };
 };

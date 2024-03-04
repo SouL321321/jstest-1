@@ -5,54 +5,61 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("asteroids")
     .setDescription(
-      "Retrieve information about asteroids based on their closest approach date to Earth."
+      "Retrieve a list of asteroids based on their closest approach date to Earth."
     )
     .addStringOption((option) =>
       option
         .setName("start_date")
-        .setDescription("Start date for asteroid search (YYYY-MM-DD)")
-        .setRequired(true)
+        .setDescription("Start date for the search (YYYY-MM-DD)")
+        .setRequired(false)
     )
     .addStringOption((option) =>
       option
         .setName("end_date")
-        .setDescription("End date for asteroid search (YYYY-MM-DD)")
-        .setRequired(true)
+        .setDescription("End date for the search (YYYY-MM-DD)")
+        .setRequired(false)
+    )
+    .addStringOption((option) =>
+      option
+        .setName("api_key")
+        .setDescription("Your NASA API key")
+        .setRequired(false)
     ),
 
   async execute(interaction) {
     const startDate = interaction.options.getString("start_date");
     const endDate = interaction.options.getString("end_date");
-    const apiKey = process.env.NASA_API;
+    const apiKey = interaction.options.getString("api_key");
+
+    const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`;
 
     try {
-      const response = await axios.get(
-        `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`
-      );
-      const asteroidData = response.data;
+      const response = await axios.get(url);
+      const asteroids = response.data.near_earth_objects;
+
+      if (!asteroids || Object.keys(asteroids).length === 0) {
+        await interaction.reply("No asteroids found for the specified dates.");
+        return;
+      }
 
       const embed = new EmbedBuilder()
-        .setColor("#FFD700")
-        .setTitle("Asteroid Information")
+        .setColor("#00ff00")
+        .setTitle("Asteroids Closest Approach to Earth")
         .setDescription(
-          `Asteroids approaching Earth between ${startDate} and ${endDate}:`
+          `A list of asteroids based on their closest approach date to Earth between ${startDate} and ${endDate}:`
         );
 
-      for (const date in asteroidData.near_earth_objects) {
-        if (asteroidData.near_earth_objects.hasOwnProperty(date)) {
-          const asteroids = asteroidData.near_earth_objects[date];
-          for (const asteroid of asteroids) {
-            embed.addFields(
-              `Name: ${asteroid.name}`,
-              `Approach Date: ${date}\nEstimated Diameter (km): ${asteroid.estimated_diameter.kilometers.estimated_diameter_min} - ${asteroid.estimated_diameter.kilometers.estimated_diameter_max}\nVelocity (km/h): ${asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour}`
-            );
-          }
-        }
+      for (const date in asteroids) {
+        const dateAsteroids = asteroids[date];
+        embed.addFields({
+          name: `Date: ${date}`,
+          value: `Number of asteroids: ${dateAsteroids.length}`,
+        });
       }
 
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
-      console.error("Error fetching asteroid data:", error);
+      console.error(error);
       await interaction.reply("Failed to retrieve asteroid data.");
     }
   },
