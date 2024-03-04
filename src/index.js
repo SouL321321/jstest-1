@@ -12,6 +12,7 @@ const client = new Client({
     IntentsBitField.Flags.GuildIntegrations,
     IntentsBitField.Flags.GuildInvites,
     IntentsBitField.Flags.GuildMessageReactions,
+    IntentsBitField.Flags.GuildVoiceStates,
   ],
   debug: true,
 });
