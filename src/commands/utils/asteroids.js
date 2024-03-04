@@ -10,14 +10,14 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("start_date")
-        .setDescription("Start date for the search (YYYY-MM-DD)")
-        .setRequired(false)
+        .setDescription("Start date for the search (YYYY-MM-DD)(max. 7 days⛔)")
+        .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName("end_date")
-        .setDescription("End date for the search (YYYY-MM-DD)")
-        .setRequired(false)
+        .setDescription("End date for the search (YYYY-MM-DD)(max. 7 days⛔)")
+        .setRequired(true)
     )
     .addStringOption((option) =>
       option
@@ -31,7 +31,17 @@ module.exports = {
     const endDate = interaction.options.getString("end_date");
     const apiKey = interaction.options.getString("api_key");
 
-    const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`;
+    // Validate date format
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(startDate) || !dateRegex.test(endDate)) {
+      await interaction.reply("Invalid date format. Please use YYYY-MM-DD.");
+      return;
+    }
+
+    const defaultApiKey = process.env.NASA_API;
+    const usedApiKey = apiKey || defaultApiKey;
+
+    const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${usedApiKey}`;
 
     try {
       const response = await axios.get(url);
