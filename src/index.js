@@ -30,5 +30,6 @@ for (const folder of functionFolders) {
 client.handleEvents();
 client.handleComponents();
 client.handleCommands();
+
 client.login(process.env.TOKEN);
 client.on(welcomeEvent.name, (...args) => welcomeEvent.execute(...args));

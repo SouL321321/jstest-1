@@ -24,6 +24,7 @@
     "date-fns": "^3.3.1",
     "discord-api-types": "^0.37.71",
     "discord-gamecord": "^4.4.1",
+    "discord-player": "^6.6.7",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
     "libsodium-wrappers": "^0.7.13",
@@ -31,6 +32,7 @@
     "node-fetch": "^3.3.2",
     "openai": "^4.20.1",
     "puppeteer": "^21.6.0",
+    "spotify-web-api-node": "^5.0.2",
     "wikijs": "^6.4.1",
     "wikipedia": "^2.1.1"
   }
