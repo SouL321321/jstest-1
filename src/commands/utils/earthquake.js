@@ -1,53 +1,46 @@
-// const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-// const axios = require("axios");
+const { SlashCommandBuilder, EmbedBuilder } = require("@discordjs/builders");
+const axios = require("axios");
 
-// module.exports = {
-//   data: new SlashCommandBuilder()
-//     .setName("earthquake")
-//     .setDescription("Get recent earthquake data"),
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("earthquake")
+    .setDescription("Retrieve earthquake data from USGS"),
 
-//   async execute(interaction) {
-//     const options = {
-//       method: "GET",
-//       url: "https://everyearthquake.p.rapidapi.com/query",
-//       headers: {
-//         "X-RapidAPI-Key": process.env.EARTHQUAKE_API,
-//         "X-RapidAPI-Host": "everyearthquake.p.rapidapi.com",
-//       },
-//       params: {
-//         starttime: "2024-01-10T00:00:00",
-//         endtime: "2024-01-11T00:00:00",
-//         minlatitude: -90,
-//         maxlatitude: 90,
-//         minlongitude: -180,
-//         maxlongitude: 180,
-//         minmagnitude: 1,
-//       },
-//     };
+  async execute(interaction) {
+    try {
+      const response = await axios.get(
+        "https://earthquake.usgs.gov/fdsnws/event/1/query",
+        {
+          params: {
+            format: "geojson",
+            limit: 10,
+            minmagnitude: 2,
+          },
+        }
+      );
 
-//     try {
-//       const response = await axios.request(options);
-//       const earthquakeData = response.data;
+      const earthquakes = response.data.features;
 
-//       const embed = new EmbedBuilder()
-//         .setColor("#ff0000")
-//         .setTitle("Recent Earthquake Data")
-//         .setDescription("Here are the recent earthquakes:")
-//         .setTimestamp();
+      const embed = new EmbedBuilder()
+        .setTitle("Latest Earthquakes")
+        .setColor(parseInt("FF0000", 16));
 
-//       earthquakeData.forEach((earthquake) => {
-//         embed.addFields(
-//           `${earthquake.properties.title}`,
-//           `Magnitude: ${earthquake.properties.mag}\nLocation: ${earthquake.properties.place}`
-//         );
-//       });
+      earthquakes.forEach((quake) => {
+        const timeString = `<t:${Math.round(quake.properties.time / 1000)}:R>`;
+        embed.addFields({
+          name: `${quake.properties.place}`,
+          value: `Magnitude ${quake.properties.mag} (${quake.properties.magType}) - ${quake.properties.place}\n**Time:** ${timeString} (UTC)\nDepth: ${quake.geometry.coordinates[2]}km`,
+        });
+      });
 
-//       await interaction.reply({ embeds: [embed] });
-//     } catch (error) {
-//       console.error(error);
-//       await interaction.reply("Failed to fetch earthquake data.");
-//     }
-//   },
-// };
-
-// TO FIX
+      await interaction.reply({
+        embeds: [embed],
+      });
+    } catch (error) {
+      console.error("Error fetching earthquake data:", error);
+      await interaction.reply(
+        "An error occurred while fetching earthquake data."
+      );
+    }
+  },
+};
