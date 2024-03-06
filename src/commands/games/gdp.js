@@ -12,7 +12,7 @@ module.exports = {
         message: interaction,
         isSlashGame: true,
         embed: {
-          title: "Who\s The Pokemon",
+          title: "Whos The Pokemon",
           color: "#5865F2",
         },
         timeoutTime: 30000,
@@ -22,6 +22,9 @@ module.exports = {
         playerOnlyMessage: "Only {player} can use these buttons.",
       });
       await game.startGame();
+      game.on("GameOver", (result) => {
+        return;
+      });
     } catch (error) {
       console.error("Error starting the game:", error);
       await interaction.reply("An error occurred while starting the game.");

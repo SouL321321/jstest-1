@@ -96,7 +96,7 @@ module.exports = {
           .setColor("#007bff")
           .setTitle("Astronomy Picture of the Day")
           .setDescription(data.explanation)
-          .setImage(data.url);
+          .setImage(data.url, { size: 1024 });
 
         await interaction.reply({ embeds: [embed] });
       }
