@@ -35,6 +35,7 @@
     "puppeteer": "^21.11.0",
     "spotify-web-api-node": "^5.0.2",
     "wikijs": "^6.4.1",
-    "wikipedia": "^2.1.2"
+    "wikipedia": "^2.1.2",
+    "ytdl-core": "^4.11.5"
   }
 }

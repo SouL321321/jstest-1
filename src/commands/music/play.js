@@ -1,44 +1,32 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder, EmbedBuilder } = require("@discordjs/builders");
 const {
   createAudioPlayer,
   createAudioResource,
-  NoSubscriberBehavior,
   joinVoiceChannel,
 } = require("@discordjs/voice");
-const SpotifyWebApi = require("spotify-web-api-node");
+const ytdl = require("ytdl-core");
 
-const player = createAudioPlayer({
-  behaviors: {
-    noSubscriber: NoSubscriberBehavior.Play,
-  },
-});
-
-const spotifyApi = new SpotifyWebApi({
-  clientId: process.env.SPOTIFY_CLIENT,
-  clientSecret: process.env.SECRET_CLIENT,
-});
+const player = createAudioPlayer();
+const queue = [];
 
 module.exports = {
+  player,
+  queue,
   data: new SlashCommandBuilder()
     .setName("play")
-    .setDescription("Play a song from Spotify using a Spotify track URL")
+    .setDescription("Play a song or playlist from YouTube using a YouTube URL")
     .addStringOption((option) =>
       option
         .setName("track_url")
-        .setDescription("The Spotify track URL")
+        .setDescription("The YouTube URL of the song or playlist")
         .setRequired(true)
     ),
 
   async execute(interaction) {
     try {
-      const data = await spotifyApi.clientCredentialsGrant();
-      const accessToken = data.body.access_token;
-
-      spotifyApi.setAccessToken(accessToken);
       const trackUrl = interaction.options.getString("track_url");
 
-      const member = interaction.guild.members.cache.get(interaction.user.id);
-      const voiceChannel = member.voice.channel;
+      const voiceChannel = interaction.member.voice.channel;
       if (!voiceChannel) {
         return await interaction.reply(
           "You need to be in a voice channel to use this command."
@@ -51,11 +39,23 @@ module.exports = {
         adapterCreator: voiceChannel.guild.voiceAdapterCreator,
       });
 
-      const resource = createAudioResource(trackUrl);
-      player.play(resource);
-      connection.subscribe(player);
+      const stream = ytdl(trackUrl, { filter: "audioonly" });
+      const resource = createAudioResource(stream);
+      
+      queue.push(resource);
 
-      await interaction.reply(`Now playing: ${trackUrl}`);
+      if (queue.length === 1) {
+        player.play(queue[0]);
+        connection.subscribe(player);
+      }
+
+      const info = await ytdl.getInfo(trackUrl);
+      const embed = new EmbedBuilder()
+        .setTitle(info.videoDetails.title)
+        .setThumbnail(info.videoDetails.thumbnail.thumbnails[0].url)
+        .setDescription(`Added to queue: ${info.videoDetails.title}`);
+
+      await interaction.reply({ embeds: [embed] });
     } catch (error) {
       console.error("Error playing track:", error);
       await interaction.reply("An error occurred while playing the track.");

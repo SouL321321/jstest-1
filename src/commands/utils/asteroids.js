@@ -31,7 +31,6 @@ module.exports = {
     const endDate = interaction.options.getString("end_date");
     const apiKey = interaction.options.getString("api_key");
 
-    // Validate date format
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(startDate) || !dateRegex.test(endDate)) {
       await interaction.reply("Invalid date format. Please use YYYY-MM-DD.");
