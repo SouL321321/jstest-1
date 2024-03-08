@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Client, IntentsBitField } = require("discord.js");
 const welcomeEvent = require("./events/client/guildMemberAdd");
 const fs = require("fs");
+const mongoose = require("mongoose");
 
 const client = new Client({
   intents: [
@@ -15,6 +16,18 @@ const client = new Client({
     IntentsBitField.Flags.GuildVoiceStates,
   ],
   debug: true,
+});
+
+mongoose.connect(process.env.DATABASE, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
+
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "Connection error:"));
+db.once("open", () => {
+  console.log("Connected to the database!");
 });
 
 const functionFolders = fs.readdirSync(`./src/functions`);

@@ -1,7 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
+const authorizedUsers = ["567580659032391681", "540617704005042201"];
+
 module.exports = {
-  owner: true,
   data: new SlashCommandBuilder()
     .setName("animated-avatar")
     .setDescription("Animate an avatar for your bot🪐")
@@ -14,6 +15,11 @@ module.exports = {
 
   async execute(interaction, client) {
     try {
+      if (!authorizedUsers.includes(interaction.user.id)) {
+        await interaction.reply({ content: "You do not have permission to use this command.", ephemeral: true });
+        return;
+      }
+
       await interaction.deferReply({ ephemeral: true });
 
       const { options } = interaction;
@@ -27,8 +33,8 @@ module.exports = {
         await interaction.editReply({ embeds: [embed] });
       }
 
-      if (avatar.contentType !== "image/gif") {
-        await sendMessage(`⚠️ Please use a gif format for animated emojis`);
+      if (!avatar.contentType || !avatar.contentType.includes("gif")) {
+        await sendMessage(`⚠️ Please use a gif format for animated avatars.`);
         return;
       }
 
@@ -40,10 +46,11 @@ module.exports = {
       });
 
       if (!error) {
-        await sendMessage(`🌍 I have uploaded your avatar`);
+        await sendMessage(`🌍 I have uploaded your avatar.`);
       }
     } catch (error) {
       console.error("Error executing command:", error);
+      interaction.followUp({ content: "An error occurred while executing the command.", ephemeral: true });
     }
   },
 };

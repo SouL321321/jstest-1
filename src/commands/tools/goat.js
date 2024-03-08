@@ -9,7 +9,7 @@ module.exports = {
 
     async execute (interaction) {
     try {
-      const unsplashApiKey = process.env.UNSPLASH_API_KEY;
+      const unsplashApiKey = process.env.UNSPLASH_API;
       const response = await axios.get(
         "https://api.unsplash.com/photos/random",
         {

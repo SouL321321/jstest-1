@@ -22,9 +22,10 @@ module.exports = (client) => {
         }
       }
     }
+
     const clientId = process.env.CLIENT_ID;
-    const guildId = process.env.GUILD_ID;
     const rest = new REST({ version: 10 }).setToken(process.env.TOKEN);
+
     try {
       console.log("Started refreshing application (/) commands.");
       await rest.put(Routes.applicationCommands(clientId), {
@@ -34,17 +35,9 @@ module.exports = (client) => {
     } catch (error) {
       console.error(`Error reloading commands: ${error.message}`);
     }
-    const data = await rest.put(
-      Routes.applicationGuildCommands(clientId, guildId),
-      { body: client.commandArray }
-    );
-    rest
-      .put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
-      .then(() => console.log("Successfully deleted all guild commands."))
-      .catch(console.error);
 
     console.log(
-      `Successfully reloaded ${data.length} application (/) commands.`
+      `Successfully reloaded ${client.commandArray.length} application (/) commands.`
     );
   };
 };
