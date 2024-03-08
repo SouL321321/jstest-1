@@ -22,9 +22,13 @@ module.exports = {
       const earthquakes = response.data.features;
 
       const embed = new EmbedBuilder()
-      .setTitle("___Latest Earthquakes___")
-      .setColor(parseInt("FF0000", 16))
-      .setDescription("⚠️ Showing recent earthquakes ⚠️");
+        .setTitle("🌍 Latest Earthquakes 🌍")
+        .setColor(0xff0000)
+        .setDescription("⚠️ **Showing recent earthquakes** ⚠️")
+        .addFields({
+          name: "__Recent Earthquakes__",
+          value: quakeText.substring(0, 1024),
+        });
 
       earthquakes.forEach((quake) => {
         const timeString = `<t:${Math.round(quake.properties.time / 1000)}:R>`;
