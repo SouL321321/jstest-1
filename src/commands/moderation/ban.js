@@ -23,10 +23,8 @@ module.exports = {
     }
 
     try {
-      // Fetch the GuildMember object
       const targetMember = await interaction.guild.members.fetch(targetUser);
 
-      // Ban the member
       await targetMember.ban({
         reason:
           interaction.options.getString("reason") || "No reason specified",
