@@ -21,21 +21,18 @@ module.exports = {
 
       const earthquakes = response.data.features;
 
-      const quakeLines = earthquakes.map((quake) => {
-        const timeString = `<t:${Math.round(quake.properties.time / 1000)}:R>`;
-        return `**${quake.properties.place}** - **Mag:** \`${quake.properties.mag}\` | **${timeString}** | **Depth:** \`${quake.geometry.coordinates[2]}km\``;
-      });
-
-      const quakeText = quakeLines.join("\n\n");
-
       const embed = new EmbedBuilder()
-        .setTitle("🌍 Latest Earthquakes 🌍")
-        .setColor(0xFF0000)
-        .setDescription("⚠️ **Showing recent earthquakes** ⚠️")
-        .addFields({
-          name: "__Recent Earthquakes__",
-          value: quakeText.substring(0, 1024),
+      .setTitle("___Latest Earthquakes___")
+      .setColor(parseInt("FF0000", 16))
+      .setDescription("⚠️ Showing recent earthquakes ⚠️");
+
+      earthquakes.forEach((quake) => {
+        const timeString = `<t:${Math.round(quake.properties.time / 1000)}:R>`;
+        embed.addFields({
+          name: `${quake.properties.place}`,
+          value: `Magnitude ${quake.properties.mag} (${quake.properties.magType}) - ${quake.properties.place}\n**Time:** ${timeString} (UTC)\nDepth: ${quake.geometry.coordinates[2]}km`,
         });
+      });
 
       await interaction.reply({
         embeds: [embed],
