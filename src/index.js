@@ -23,7 +23,6 @@ mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
 });
 
-
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error:"));
 db.once("open", () => {
@@ -45,4 +44,11 @@ client.handleComponents();
 client.handleCommands();
 
 client.login(process.env.TOKEN);
+client.on("guildMemberAdd", (member) => {
+  try {
+    welcomeEvent.execute(member);
+  } catch (error) {
+    console.error("Error in guildMemberAdd event:", error);
+  }
+});
 client.on(welcomeEvent.name, (...args) => welcomeEvent.execute(...args));
