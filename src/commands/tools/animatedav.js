@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
-const authorizedUsers = ["567580659032391681", "540617704005042201"];
+const authorizedUsers = process.env.DEVELOPERS_ID.split(",");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -16,7 +16,10 @@ module.exports = {
   async execute(interaction, client) {
     try {
       if (!authorizedUsers.includes(interaction.user.id)) {
-        await interaction.reply({ content: "You do not have permission to use this command.", ephemeral: true });
+        await interaction.reply({
+          content: "You do not have permission to use this command.",
+          ephemeral: true,
+        });
         return;
       }
 
@@ -50,7 +53,10 @@ module.exports = {
       }
     } catch (error) {
       console.error("Error executing command:", error);
-      interaction.followUp({ content: "An error occurred while executing the command.", ephemeral: true });
+      interaction.followUp({
+        content: "An error occurred while executing the command.",
+        ephemeral: true,
+      });
     }
   },
 };
