@@ -19,6 +19,11 @@ module.exports = {
     ),
 
   async execute(interaction) {
+    if (!interaction.member.permissions.has("ADMINISTRATOR")) {
+      await interaction.reply("Only administrators can use this command.");
+      return;
+    }
+
     const welcomeChannel = interaction.options.getChannel("welcome-channel");
     const welcomeRole = interaction.options.getRole("welcome-role");
 
