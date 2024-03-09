@@ -1,7 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const mongoose = require("mongoose");
-
-const FeedbackModel = mongoose.model("Feedback");
+const FeedbackModel = require("../../models/feedback");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -13,7 +11,9 @@ module.exports = {
   async execute(interaction) {
     try {
       if (interaction.member.permissions.has("ADMINISTRATOR")) {
-        const allFeedback = await FeedbackModel.find();
+        const guildId = interaction.guild.id;
+
+        const allFeedback = await FeedbackModel.find({ guildId });
 
         const feedbackList = allFeedback.map((feedback, index) => {
           const embed = new EmbedBuilder()
@@ -32,6 +32,7 @@ module.exports = {
 
           return embed;
         });
+
         if (feedbackList.length > 0) {
           await interaction.reply({ embeds: feedbackList });
         } else {
