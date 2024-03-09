@@ -2,10 +2,20 @@ const { EmbedBuilder } = require("discord.js");
 const GuildConfig = require("../../models/guildConfig");
 
 module.exports = {
-  name: "guildMemberAdd",
   async execute(member) {
     try {
-      const guildConfig = await GuildConfig.findOne({ guildId: member.guild.id });
+      console.log(`guildMemberAdd event received for guild ${member.guild.id}`);
+
+      const guildConfigCount = await GuildConfig.countDocuments({ guildId: member.guild.id });
+      console.log(`GuildConfig count for guild ${member.guild.id}:`, guildConfigCount);
+
+      if (guildConfigCount > 1) {
+        console.warn(`Multiple GuildConfig documents found for guild ${member.guild.id}.`);
+      }
+
+      const guildConfig = await GuildConfig.findOne({
+        guildId: member.guild.id,
+      });
 
       if (!guildConfig) {
         console.error("Configuration not found for this guild.");
@@ -37,10 +47,18 @@ module.exports = {
           name: "Member Info",
           value: `Username: ${member.user.username}\nTag: ${member.user.tag}\nID: ${member.user.id}`,
         })
-        .setThumbnail(member.user.displayAvatarURL({ format: "png", size: 256, dynamic: true }))
+        .setThumbnail(
+          member.user.displayAvatarURL({
+            format: "png",
+            size: 256,
+            dynamic: true,
+          })
+        )
         .setTimestamp();
 
       await channel.send({ embeds: [embed] });
+
+      console.log(`Embed sent for guild ${member.guild.id}`);
     } catch (error) {
       console.error("Error in guildMemberAdd event:", error);
     }

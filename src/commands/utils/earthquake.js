@@ -1,4 +1,10 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("@discordjs/builders");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+} = require("discord.js");
 const axios = require("axios");
 
 module.exports = {
@@ -27,10 +33,13 @@ module.exports = {
         .setDescription("⚠️ **Showing recent earthquakes** ⚠️");
 
       earthquakes.forEach((quake) => {
-        const timeString = `<t:${Math.round(quake.properties.time / 1000)}:R>`;
+        const date = new Date(quake.properties.time);
+        const timeString = `<t:${Math.round(date.getTime() / 1000)}:R>`;
+        const mapUrl = `https://earthquake.usgs.gov/earthquakes/eventpage/${quake.id}/map`;
+
         embed.addFields({
-          name: `${quake.properties.place}`,
-          value: `Magnitude ${quake.properties.mag} (${quake.properties.magType}) - ${quake.properties.place}\n**Time:** ${timeString} (UTC)\nDepth: ${quake.geometry.coordinates[2]}km`,
+          name: `**${quake.properties.place}**`,
+          value: `Magnitude ${quake.properties.mag} (${quake.properties.magType})\nTime: ${timeString} (UTC)\nDepth: ${quake.geometry.coordinates[2]}km\n[View on Map](${mapUrl})`,
         });
       });
 

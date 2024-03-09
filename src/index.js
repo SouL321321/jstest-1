@@ -14,13 +14,14 @@ const client = new Client({
     IntentsBitField.Flags.GuildInvites,
     IntentsBitField.Flags.GuildMessageReactions,
     IntentsBitField.Flags.GuildVoiceStates,
+    IntentsBitField.Flags.AutoModerationExecution,
+    IntentsBitField.Flags.GuildModeration,
+    IntentsBitField.Flags.AutoModerationConfiguration,
   ],
   debug: true,
 });
 
 mongoose.connect(process.env.DATABASE, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
 });
 
 const db = mongoose.connection;

@@ -15,7 +15,7 @@ module.exports = {
       option
         .setName("welcome-role")
         .setDescription("The welcome role for the server.")
-        .setRequired(true)
+        .setRequired(false)
     ),
 
   async execute(interaction) {
@@ -24,19 +24,21 @@ module.exports = {
 
     try {
       const guildId = interaction.guild.id;
-      const existingConfig = await GuildConfig.findOneAndUpdate({ guildId });
+      console.log(`Command received for guild ${guildId}`);
 
-      if (existingConfig) {
-        existingConfig.welcomeChannelId = welcomeChannel.id;
-        existingConfig.welcomeRoleId = welcomeRole.id;
-        await existingConfig.save();
-      } else {
-        await GuildConfig.create({
-          guildId,
-          welcomeChannelId: welcomeChannel.id,
-          welcomeRoleId: welcomeRole.id,
-        });
-      }
+      const result = await GuildConfig.findOneAndUpdate(
+        { guildId },
+        {
+          $set: {
+            welcomeChannelId: welcomeChannel.id,
+            welcomeRoleId: welcomeRole.id,
+          },
+        },
+        { upsert: true, new: true }
+      );
+
+      console.log(`Configuration saved for guild ${guildId}`);
+      console.log("Result:", result);
 
       await interaction.reply("Configuration completed successfully!");
     } catch (error) {
