@@ -4,7 +4,7 @@ require("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("goat")
+    .setName("goat-sheep-bighom")
     .setDescription("Get a random goat image"),
 
     async execute (interaction) {
@@ -26,7 +26,7 @@ module.exports = {
       const imageUrl = response.data.urls.full;
 
       await interaction.reply({
-        content: "Here's the 🐐",
+        content: "Here's the 🐐 🐑 🐏",
         embeds: [
           {
             image: {

@@ -31,25 +31,36 @@ module.exports = {
       const guildId = interaction.guild.id;
       console.log(`Command received for guild ${guildId}`);
 
+      if (!welcomeChannel) {
+        throw new Error("Welcome channel not provided.");
+      }
+
+      const configUpdate = {
+        $set: { welcomeChannelId: welcomeChannel.id },
+      };
+
+      if (welcomeRole) {
+        configUpdate.$set.welcomeRoleId = welcomeRole.id;
+      }
+
       const result = await GuildConfig.findOneAndUpdate(
         { guildId },
-        {
-          $set: {
-            welcomeChannelId: welcomeChannel.id,
-            welcomeRoleId: welcomeRole.id,
-          },
-        },
+        configUpdate,
         { upsert: true, new: true }
       );
+
+      if (!result) {
+        throw new Error("Failed to save configuration.");
+      }
 
       console.log(`Configuration saved for guild ${guildId}`);
       console.log("Result:", result);
 
       await interaction.reply("Configuration completed successfully!");
     } catch (error) {
-      console.error("Error saving configuration:", error);
+      console.error("Error saving configuration:", error.message);
       await interaction.reply(
-        "An error occurred while saving the configuration."
+        "An error occurred while saving the configuration. " + error.message
       );
     }
   },

@@ -20,7 +20,7 @@ module.exports = {
       trueButtonStyle: "SUCCESS",
       falseButtonStyle: "DANGER",
       mode: "multiple",
-      difficulty: "medium",
+      difficulty: "easy",
       winMessage: "You won! The correct answer is {answer}.",
       loseMessage: "You lost! The correct answer is {answer}.",
       errMessage: "Unable to fetch question data! Please try again.",

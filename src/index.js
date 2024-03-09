@@ -21,8 +21,7 @@ const client = new Client({
   debug: true,
 });
 
-mongoose.connect(process.env.DATABASE, {
-});
+mongoose.connect(process.env.DATABASE, {});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error:"));

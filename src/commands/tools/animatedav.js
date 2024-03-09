@@ -5,7 +5,9 @@ const authorizedUsers = process.env.DEVELOPERS_ID.split(",");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("animated-avatar")
-    .setDescription("Animate an avatar for your bot🪐")
+    .setDescription(
+      "Animate an avatar for this bot🪐 [⚠️ JUST FOR DEVELOPERS ⚠️]"
+    )
     .addAttachmentOption((option) =>
       option
         .setName("avatar")
