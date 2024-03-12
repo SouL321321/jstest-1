@@ -35,9 +35,9 @@ module.exports = {
           },
         ],
       }); 
-      await message.react("🐐");
-      await message.react("🐑");
-      await message.react("🐏");
+      await sentMessage.react("🐐");
+      await sentMessage.react("🐑");
+      await sentMessage.react("🐏");
     } catch (error) {
       console.error(`Error executing /goat command: ${error.message}`);
       await interaction.reply("An error occurred while executing the command.");
