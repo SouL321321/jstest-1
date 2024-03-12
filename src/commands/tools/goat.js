@@ -5,7 +5,7 @@ require("dotenv").config();
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("goat-sheep-bighom")
-    .setDescription("Get a random goat image"),
+    .setDescription("Get a random goat, sheep or bighom image."),
 
     async execute (interaction) {
     try {
@@ -34,7 +34,10 @@ module.exports = {
             },
           },
         ],
-      });
+      }); 
+      await message.react("🐐");
+      await message.react("🐑");
+      await message.react("🐏");
     } catch (error) {
       console.error(`Error executing /goat command: ${error.message}`);
       await interaction.reply("An error occurred while executing the command.");
