@@ -25,7 +25,7 @@ module.exports = {
 
       const imageUrl = response.data.urls.full;
 
-      await interaction.reply({
+       await interaction.reply({
         content: "Here's the 🐐 🐑 🐏",
         embeds: [
           {

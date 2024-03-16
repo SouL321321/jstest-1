@@ -37,6 +37,19 @@ module.exports = {
       return;
     }
 
+    const currentDate = new Date();
+
+    if (
+      new Date(startDate) > currentDate ||
+      new Date(endDate) > currentDate ||
+      new Date(startDate) > new Date(endDate)
+    ) {
+      await interaction.reply(
+        "Invalid date range. Please ensure the start date is in the past and precedes the end date."
+      );
+      return;
+    }
+
     const defaultApiKey = process.env.NASA_API;
     const usedApiKey = apiKey || defaultApiKey;
 
@@ -44,17 +57,6 @@ module.exports = {
 
     try {
       const response = await axios.get(url);
-
-      const rateLimitRemaining = response.headers["x-ratelimit-remaining"];
-      const rateLimitReset = response.headers["x-ratelimit-reset"];
-      let replyMessage = "Retrieved Astronomy Picture of the Day.";
-      if (rateLimitRemaining !== undefined && rateLimitReset !== undefined) {
-        replyMessage += `\nRate limit remaining: ${rateLimitRemaining}`;
-        replyMessage += `\nRate limit reset time: ${new Date(
-          rateLimitReset * 1000
-        )}`;
-      }
-      
       const asteroids = response.data.near_earth_objects;
 
       if (!asteroids || Object.keys(asteroids).length === 0) {
@@ -62,18 +64,35 @@ module.exports = {
         return;
       }
 
+      const totalAsteroids = Object.values(asteroids).reduce(
+        (acc, curr) => acc + curr.length,
+        0
+      );
+      let embedColor = "#00ff00";
+      if (totalAsteroids < 10) {
+        embedColor = "#ffff00";
+      } else if (totalAsteroids >= 10 && totalAsteroids < 50) {
+        embedColor = "#ffa500";
+      } else {
+        embedColor = "#ff0000";
+      }
+
       const embed = new EmbedBuilder()
-        .setColor("#00ff00")
-        .setTitle("Asteroids Closest Approach to Earth")
+        .setColor(embedColor)
+        .setTitle("🌌 Asteroids Closest Approach to Earth 🌌")
         .setDescription(
-          `A list of asteroids based on their closest approach date to Earth between ${startDate} and ${endDate}:`
-        );
+          `Here's a list of asteroids based on their closest approach to Earth between ${startDate} and ${endDate}: 🚀`
+        )
+        .setFooter({
+          text:
+            "Asteroid Report generated on " + new Date().toLocaleDateString(),
+        });
 
       for (const date in asteroids) {
         const dateAsteroids = asteroids[date];
         embed.addFields({
-          name: `Date: ${date}`,
-          value: `Number of asteroids: ${dateAsteroids.length}`,
+          name: `📅 Date: ${date}`,
+          value: `🪐 Number of asteroids: ${dateAsteroids.length}`,
         });
       }
 

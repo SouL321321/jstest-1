@@ -9,11 +9,11 @@ module.exports = (client) => {
         text: `/help | Guild Guru`,
         status: "dnd",
       },
-      // {
-      //   type: ActivityType.Streaming,
-      //   text: "in afk-zone (random stuff)🥮",
-      //   status: "idle",
-      // },
+      {
+        type: ActivityType.Streaming,
+        text: `⚠️ ᴍᴀɴᴜᴛᴇɴᴛɪᴏɴ ⚠️`,
+        status: "idle",
+      },
       // {
       //   type: ActivityType.Listening,
       //   text: "Do not disturb me🛑 ty",

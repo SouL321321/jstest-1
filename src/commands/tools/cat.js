@@ -4,7 +4,7 @@ const axios = require("axios");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("cat")
-    .setDescription("Send a random cat image"),
+      .setDescription("Send a random cat image"),
 
     async execute (interaction) {
     try {

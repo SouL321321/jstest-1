@@ -7,7 +7,8 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("menu")
-    .setDescription("Return a select menu!"),
+    .setDescription("Return a select menu!")
+    .toJSON(),
     async execute (interaction) {
     const menu = new StringSelectMenuBuilder()
       .setCustomId(`sub-menu`)
