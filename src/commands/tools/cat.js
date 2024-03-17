@@ -1,27 +1,32 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("cat")
-      .setDescription("Send a random cat image"),
+    .setDescription("Send a random cat image"),
 
-    async execute (interaction) {
+  async execute(interaction) {
     try {
       const response = await axios.get(
         "https://api.thecatapi.com/v1/images/search"
       );
       const catImageUrl = response.data[0].url;
 
-      const message = await interaction.reply({
-        content: "Here's a cat 🐈",
-        files: [{ attachment: catImageUrl, name: "cat.jpg" }],
+      const embed = new EmbedBuilder()
+        .setColor("#0099ff")
+        .setTitle("Random Cat Image")
+        .setDescription("Here's a cute cat 🐈")
+        .setImage(catImageUrl);
+
+      const sentMessage = await interaction.reply({
+        embeds: [embed],
         fetchReply: true,
       });
 
-      await message.react("😍");
-      await message.react("💗");
-      await message.react("🐱");
+      await sentMessage.react("😍");
+      await sentMessage.react("💗");
+      await sentMessage.react("🐱");
     } catch (error) {
       console.error("Error while retrieving cat image:", error);
       await interaction.reply(
