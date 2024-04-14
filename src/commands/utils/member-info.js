@@ -40,7 +40,6 @@ module.exports = {
         profileBuffer = await profileImage(member.id);
       } catch (imageError) {
         console.error("Error retrieving profile image:", imageError);
-        // Se non è possibile ottenere l'immagine del profilo, lasciamo profileBuffer undefined
       }
 
       const imageAttachment = profileBuffer
