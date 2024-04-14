@@ -6,7 +6,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("animated-avatar")
     .setDescription(
-      "Animate an avatar for this bot🪐 [⚠️ JUST FOR DEVELOPERS ⚠️]"
+      "Animate an avatar for this bot🪐 [⚠️ JUST FOR CREATOR OF THE BOT. ⚠️]"
     )
     .addAttachmentOption((option) =>
       option

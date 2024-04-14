@@ -3,7 +3,6 @@ const {
   EmbedBuilder,
   AttachmentBuilder,
 } = require("discord.js");
-
 const { profileImage } = require("discord-arts");
 
 module.exports = {
@@ -35,10 +34,18 @@ module.exports = {
 
     try {
       const fetchedMembers = await interaction.guild.members.fetch();
-      const profileBuffer = await profileImage(member.id);
-      const imageAttachment = new AttachmentBuilder(profileBuffer, {
-        name: "profile.png",
-      });
+
+      let profileBuffer;
+      try {
+        profileBuffer = await profileImage(member.id);
+      } catch (imageError) {
+        console.error("Error retrieving profile image:", imageError);
+        // Se non è possibile ottenere l'immagine del profilo, lasciamo profileBuffer undefined
+      }
+
+      const imageAttachment = profileBuffer
+        ? new AttachmentBuilder(profileBuffer, { name: "profile.png" })
+        : null;
 
       const joinPosition =
         Array.from(
@@ -103,7 +110,7 @@ module.exports = {
 
       await interaction.editReply({
         embeds: [embed],
-        files: [imageAttachment],
+        files: imageAttachment ? [imageAttachment] : [],
       });
     } catch (error) {
       console.error(error);
@@ -144,5 +151,9 @@ function addBadges(badgeNames) {
     DiscordBoost: "<:discordboost7:1216582498578993163>",
   };
 
-  return badgeNames.map((badgeName) => badgeMap[badgeName]).filter(Boolean);
+  if (badgeNames && badgeNames.length > 0) {
+    return badgeNames.map((badgeName) => badgeMap[badgeName]).filter(Boolean);
+  } else {
+    return ["⚠️ No badges ⚠️"];
+  }
 }

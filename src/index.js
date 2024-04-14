@@ -43,7 +43,6 @@ client.handleEvents();
 client.handleComponents();
 client.handleCommands();
 
-client.login(process.env.TOKEN);
 client.on("guildMemberAdd", (member) => {
   try {
     welcomeEvent.execute(member);
@@ -52,3 +51,5 @@ client.on("guildMemberAdd", (member) => {
   }
 });
 client.on(welcomeEvent.name, (...args) => welcomeEvent.execute(...args));
+
+client.login(process.env.TOKEN);
