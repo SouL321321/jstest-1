@@ -6,13 +6,32 @@ module.exports = {
     .setName("tic-tac-toe")
     .setDescription("Start a Tic-Tac-Toe game.")
     .addUserOption((option) =>
-      option.setName("user").setDescription("The opponent").setRequired(true)
+      option
+        .setName("opponent")
+        .setDescription("The opponent")
+        .setRequired(true)
     ),
   async execute(interaction) {
+    const opponent = interaction.options.getUser("opponent");
+
+    if (opponent.id === interaction.user.id) {
+      return await interaction.reply({
+        content: "You can't play against yourself!",
+        ephemeral: true,
+      });
+    }
+
+    if (opponent.bot) {
+      return await interaction.reply({
+        content: "You can't play against bot!",
+        ephemeral: true,
+      });
+    }
+
     const Game = new TicTacToe({
       message: interaction,
       isSlashGame: true,
-      opponent: interaction.options.getUser("user"),
+      opponent: interaction.options.getUser("opponent"),
       embed: {
         title: "❌Tic Tac Toe🔵",
         color: "#5865f2",
@@ -37,7 +56,7 @@ module.exports = {
 
     Game.startGame();
     Game.on("gameOver", (result) => {
-      console.log(result); // =>  { result... }
+      console.log(result);
     });
   },
 };

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, userMention } = require("discord.js");
 const { RockPaperScissors } = require("discord-gamecord");
 
 module.exports = {
@@ -14,6 +14,20 @@ module.exports = {
 
   async execute(interaction) {
     const opponent = interaction.options.getUser("opponent");
+
+    if (opponent.id === interaction.user.id) {
+      return await interaction.reply({
+        content: "You can't play against yourself!",
+        ephemeral: true,
+      });
+    }
+
+    if (opponent.bot) {
+      return await interaction.reply({
+        content: "You can't play against bot!",
+        ephemeral: true,
+      });
+    }
 
     const Game = new RockPaperScissors({
       message: interaction,

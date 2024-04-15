@@ -14,11 +14,11 @@ module.exports = (client) => {
         text: `⚠️ ᴍᴀɴᴜᴛᴇɴᴛɪᴏɴ ⚠️`,
         status: "idle",
       },
-      // {
-      //   type: ActivityType.Listening,
-      //   text: "Do not disturb me🛑 ty",
-      //   status: "dnd",
-      // },
+      {
+        type: ActivityType.Listening,
+        text: "Do not disturb me🛑 ty",
+        status: "dnd",
+      },
     ];
 
     const option = Math.floor(Math.random() * options.length);

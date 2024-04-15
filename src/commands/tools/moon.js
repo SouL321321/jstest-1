@@ -4,8 +4,8 @@ require("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("planet")
-    .setDescription("Get a planet image"),
+    .setName("moon")
+    .setDescription("Get the image of the moon. 🌓"),
 
     async execute (interaction) {
     try {
@@ -14,7 +14,7 @@ module.exports = {
         "https://api.unsplash.com/photos/random",
         {
           params: {
-            query: "planet",
+            query: "moon",
             orientation: "landscape",
           },
           headers: {
@@ -26,7 +26,7 @@ module.exports = {
       const imageUrl = response.data.urls.full;
 
       await interaction.reply({
-        content: ".🪐.",
+        content: ".🌝.",
         embeds: [
           {
             image: {

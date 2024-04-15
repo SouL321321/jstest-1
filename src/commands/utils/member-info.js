@@ -34,6 +34,11 @@ module.exports = {
 
     try {
       const fetchedMembers = await interaction.guild.members.fetch();
+      const sortedMembers = Array.from(fetchedMembers).sort(
+        (a, b) => a.joinedAt - b.joinedAt
+      );
+      const joinPosition =
+        sortedMembers.findIndex((m) => m[1].id === member.id) + 1;
 
       let profileBuffer;
       try {
@@ -45,13 +50,6 @@ module.exports = {
       const imageAttachment = profileBuffer
         ? new AttachmentBuilder(profileBuffer, { name: "profile.png" })
         : null;
-
-      const joinPosition =
-        Array.from(
-          fetchedMembers
-            .sort((a, b) => a.joinedTimestamp - b.joinedTimestamp)
-            .keys()
-        ).findIndex((m) => m.id === member.id) + 1;
 
       const topRoles = member.roles.cache
         .sort((a, b) => b.position - a.position)
@@ -68,11 +66,11 @@ module.exports = {
         : "❌";
 
       const embed = new EmbedBuilder()
+        .setColor(member.displayColor)
         .setAuthor({
           name: `${member.user.tag} | General Information`,
           iconURL: member.displayAvatarURL(),
         })
-        .setColor(member.displayColor)
         .setDescription(
           `On <t:${joinTime}:D>, ${
             member.user.username
@@ -105,7 +103,12 @@ module.exports = {
             })`,
             inline: true,
           }
-        );
+        )
+        .setTimestamp()
+        .setFooter({
+          text: `Requested by ${interaction.user.username}`,
+          iconURL: interaction.user.displayAvatarURL(),
+        });
 
       await interaction.editReply({
         embeds: [embed],
