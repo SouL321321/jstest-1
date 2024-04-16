@@ -1,14 +1,12 @@
-const {
-  SlashCommandBuilder,
-  EmbedBuilder,
-  AttachmentBuilder,
-} = require("discord.js");
-const { profileImage } = require("discord-arts");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+// const { profileImage } = require("discord-arts");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("member-info")
-    .setDescription("View your or any member's information. 👤")
+    .setDescription(
+      "[🚫YOU CAN NOT SEE ALL YOUR BADGES🚫!] View your or any member's information.👤"
+    )
     .setDMPermission(false)
     .addUserOption((option) =>
       option
@@ -40,16 +38,16 @@ module.exports = {
       const joinPosition =
         sortedMembers.findIndex((m) => m[1].id === member.id) + 1;
 
-      let profileBuffer;
-      try {
-        profileBuffer = await profileImage(member.id);
-      } catch (imageError) {
-        console.error("Error retrieving profile image:", imageError);
-      }
+      // let profileBuffer;
+      // try {
+      //   profileBuffer = await profileImage(member.id);
+      // } catch (imageError) {
+      //   console.error("Error retrieving profile image:", imageError);
+      // }
 
-      const imageAttachment = profileBuffer
-        ? new AttachmentBuilder(profileBuffer, { name: "profile.png" })
-        : null;
+      // const imageAttachment = profileBuffer
+      //   ? new AttachmentBuilder(profileBuffer, { name: "profile.png" })
+      //   : null;
 
       const topRoles = member.roles.cache
         .sort((a, b) => b.position - a.position)
@@ -58,12 +56,12 @@ module.exports = {
 
       const userBadges = member.user.flags.toArray();
 
+      const Booster = member.roles.cache.some(
+        (role) => role.name === "Server Booster"
+      );
+
       const joinTime = parseInt(member.joinedTimestamp / 1000);
       const createdTime = parseInt(member.user.createdTimestamp / 1000);
-
-      const Booster = member.premiumSince
-        ? "<:discordboost7:1216582498578993163>"
-        : "❌";
 
       const embed = new EmbedBuilder()
         .setColor(member.displayColor)
@@ -79,13 +77,15 @@ module.exports = {
         .addFields(
           {
             name: "Badges",
-            value: addBadges(userBadges).join(""),
+            value: `${addBadges(userBadges).join("")}`,
             inline: true,
           },
-          { name: "Booster", value: Booster, inline: true },
+          { name: "Booster", value: `${Booster}`, inline: true },
           {
             name: "Top Roles",
-            value: topRoles.join("\n").replace(`<@${interaction.guildId}>`),
+            value: `${topRoles
+              .join("\n")
+              .replace(`<@${interaction.guildId}>`)}`,
             inline: false,
           },
           { name: "Created", value: `<t:${createdTime}:R>`, inline: true },
@@ -94,13 +94,6 @@ module.exports = {
           {
             name: "Avatar",
             value: `[Link](${member.displayAvatarURL()})`,
-            inline: true,
-          },
-          {
-            name: "Banner",
-            value: `[Link](${
-              (await member.user.fetch()).bannerURL() || "No Banner"
-            })`,
             inline: true,
           }
         )
@@ -112,7 +105,7 @@ module.exports = {
 
       await interaction.editReply({
         embeds: [embed],
-        files: imageAttachment ? [imageAttachment] : [],
+        // files: imageAttachment ? [imageAttachment] : [],
       });
     } catch (error) {
       console.error(error);
@@ -144,14 +137,25 @@ function addBadges(badgeNames) {
     PremiumEarlySupporter: "<:discordearlysupporter:1216582506871128156>",
     Partner: "<:discordpartner:1216582512785231882>",
     Staff: "<:discordstaff:1216582514643042304>",
-    HypeSquadOnlineHouse1: "<:hypesquadbalance:1216582516602044456>",
-    HypeSquadOnlineHouse2: "<:hypesquadbravery:1216582518476767282>",
-    HypeSquadOnlineHouse3: "<:hypesquadbrilliance:1216582520573923328>",
+    Username: "<:username:1229824401038508052>",
+    HypeSquadOnlineHouse1: "<:hypesquadbravery:1216582518476767282>",
+    HypeSquadOnlineHouse2: "<:hypesquadbrilliance:1216582520573923328>",
+    HypeSquadOnlineHouse3: "<:hypesquadbalance:1216582516602044456>",
     Hypesquad: "<:hypesquadevents:1216582556846264411>",
     CertifiedModerator: "<:discordmod:1216582508498518066>",
     CertifiedDeveloper: "<:discordbotdev:1216582500818620456>",
-    DiscordBoost: "<:discordboost7:1216582498578993163>",
+    DiscordNitro: "<:discordnitro:1216582511178809375>",
+    DiscordBoost1: "<:discordboost1:1229831185178296420>",
+    DiscordBoost2: "<:discordboost2:1229831212546261032>",
+    DiscordBoost3: "<:discordboost3:1229831214391754853>",
+    DiscordBoost7: "<:discordboost7:1216582498578993163>",
   };
+
+  const badges = [];
+
+  if (badgeNames.includes("<:discordnitro:1216582511178809375>")) {
+    badges.push(badgeMap["DiscordNitro"]);
+  }
 
   if (badgeNames && badgeNames.length > 0) {
     return badgeNames.map((badgeName) => badgeMap[badgeName]).filter(Boolean);

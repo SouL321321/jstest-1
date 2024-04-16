@@ -50,6 +50,7 @@ client.on("guildMemberAdd", (member) => {
     console.error("Error in guildMemberAdd event:", error);
   }
 });
+
 client.on(welcomeEvent.name, (...args) => welcomeEvent.execute(...args));
 
 client.login(process.env.TOKEN);

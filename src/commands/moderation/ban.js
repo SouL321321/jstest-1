@@ -33,7 +33,7 @@ module.exports = {
         .setTitle("User Banned")
         .setDescription(`Successfully banned ${targetUser} from the server.`)
         .setColor("DarkRed")
-        .setThumbnail(target.displayAvatarURL({ dynamic: true }))
+        .setThumbnail(targetMember.displayAvatarURL({ dynamic: true }))
         .addFields(
           {
             name: "Banned by",
