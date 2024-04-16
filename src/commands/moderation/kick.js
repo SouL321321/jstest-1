@@ -18,7 +18,7 @@ module.exports = {
     const target = interaction.options.getUser("target");
     const reason =
       interaction.options.getString("reason") ?? "No reason provided";
-    if (!interaction.memberPermissions.has("KICK_MEMBERS")) {
+    if (!interaction.memberPermissions.has("ADMINISTRATOR")) {
       return interaction.reply(`No permissions for kick!`);
     }
     try {
