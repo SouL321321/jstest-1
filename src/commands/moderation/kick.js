@@ -19,17 +19,7 @@ module.exports = {
     const reason =
       interaction.options.getString("reason") ?? "No reason provided";
     if (!interaction.memberPermissions.has("KICK_MEMBERS")) {
-      return interaction.reply(`You don't have permission to kick members!`);
-    }
-
-    if (
-      target.roles.highest.comparePositionTo(
-        interaction.member.roles.highest
-      ) >= 0
-    ) {
-      return interaction.reply(
-        "You cannot kick a user with the same or higher role than yours."
-      );
+      return interaction.reply(`No permissions for kick!`);
     }
     try {
       await interaction.guild.members.kick(
@@ -44,4 +34,4 @@ module.exports = {
       interaction.reply(`An error occurred while kickin the user.`);
     }
   },
-};  
+};
