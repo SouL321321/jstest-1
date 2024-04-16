@@ -21,6 +21,7 @@ module.exports = {
           ephemeral: true,
         });
       }
+
       const timeoutMembers = await TimeoutMember.find({
         guildId: interaction.guildId,
       });
@@ -32,17 +33,25 @@ module.exports = {
         });
       }
 
+      const memberFields = [];
+      for (const timeoutMember of timeoutMembers) {
+        const guildMember = await interaction.guild.members.fetch(
+          timeoutMember.memberId
+        );
+        if (guildMember) {
+          memberFields.push({
+            name: guildMember.user.tag,
+            value: `Timeout end: ${timeoutMember.timeoutEnd}`,
+            inline: true,
+          });
+        }
+      }
+
       const embed = new EmbedBuilder()
-        .setColor("#808080")
+        .setColor("Grey")
         .setTitle("Timed Out Members")
         .setDescription("List of members currently timed out:")
-        .addFields(
-          timeoutMembers.map((member) => ({
-            name: member.memberId,
-            value: `Timeout end: ${member.timeoutEnd}`,
-            inline: true,
-          }))
-        );
+        .addFields(memberFields);
 
       interaction.reply({ embeds: [embed], ephemeral: true });
     } catch (error) {

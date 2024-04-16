@@ -101,15 +101,18 @@ module.exports = {
 
     setTimeout(async () => {
       try {
-        await member.roles.remove(timeOutRole);
-        await TimeoutMember.deleteOne({
-          guildId: interaction.guildId,
-          memberId: member.id,
-        });
+        if (member.roles.cache.has(timeOutRole.id)) {
+          await member.roles.remove(timeOutRole);
 
-        interaction.followUp({
-          content: `${member.displayName} has been released from time-out.`,
-        });
+          await TimeoutMember.deleteOne({
+            guildId: interaction.guildId,
+            memberId: member.id,
+          });
+
+          interaction.followUp({
+            content: `${member.displayName} has been released from time-out.`,
+          });
+        }
       } catch (error) {
         console.error("Error releasing member from time-out:", error);
         interaction.followUp({

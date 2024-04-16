@@ -40,10 +40,14 @@ module.exports = {
     try {
       await member.roles.remove(timeOutRole);
 
-      await TimeoutMember.deleteOne({
+      const timeoutMember = await TimeoutMember.findOne({
         guildId: interaction.guildId,
         memberId: member.id,
       });
+
+      if (timeoutMember) {
+        await timeoutMember.deleteOne();
+      }
 
       interaction.reply({
         content: `${member.displayName} has been removed from time-out.`,
