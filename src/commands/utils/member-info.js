@@ -4,7 +4,9 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("member-info")
-    .setDescription("[🚫YOU CAN NOT SEE ALL YOUR BADGES🚫!] View your or any member's information.👤")
+    .setDescription(
+      "[🚫YOU CAN NOT SEE ALL YOUR BADGES🚫!] View your or any member's information.👤"
+    )
     .setDMPermission(false)
     .addUserOption((option) =>
       option
@@ -57,6 +59,8 @@ module.exports = {
       const joinTime = parseInt(member.joinedTimestamp / 1000);
       const createdTime = parseInt(member.user.createdTimestamp / 1000);
 
+      const boosterStatus = member.premiumSince ? "Yes" : "No";
+
       const embed = new EmbedBuilder()
         .setColor(member.displayColor)
         .setAuthor({
@@ -74,7 +78,7 @@ module.exports = {
             value: `${addBadges(userBadges).join("")}`,
             inline: true,
           },
-          { name: "Booster", value: `${Booster}`, inline: true },
+          { name: "Booster", value: boosterStatus, inline: true },
           {
             name: "Top Roles",
             value: `${topRoles
@@ -150,7 +154,7 @@ function addBadges(badgeNames) {
   if (badgeNames.includes("<:discordnitro:1216582511178809375>")) {
     badges.push(badgeMap["DiscordNitro"]);
   }
-  
+
   if (badgeNames && badgeNames.length > 0) {
     return badgeNames.map((badgeName) => badgeMap[badgeName]).filter(Boolean);
   } else {

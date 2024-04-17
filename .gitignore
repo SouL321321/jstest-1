@@ -1,4 +1,4 @@
 node_modules
 .env
-fonts
-images
+.fonts
+.images
