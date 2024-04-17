@@ -25,11 +25,6 @@ module.exports = {
           value:
             "Use tools like weather, studytimer, wikipedia, earthquake and more to boost your server's productivity.",
           inline: false,
-        },
-        {
-          name: "📈 ?",
-          value: "SOME IDEA SOON.",
-          inline: false,
         }
       )
       .setFooter({ text: "Need help? Reach out to us anytime!" });
