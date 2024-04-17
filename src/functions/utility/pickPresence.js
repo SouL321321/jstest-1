@@ -5,20 +5,20 @@ module.exports = (client) => {
     // const serverCount = client.guilds.cache.size;
     const options = [
       {
-        type: ActivityType.Watching,
+        type: ActivityType.Listening,
         text: `/help | Guild Guru`,
         status: "dnd",
       },
       {
-        type: ActivityType.Streaming,
+        type: ActivityType.Watching,
         text: `⚠️ ᴍᴀɴᴜᴛᴇɴᴛɪᴏɴ ⚠️`,
         status: "idle",
       },
-      {
-        type: ActivityType.Listening,
-        text: "Do not disturb me🛑 ty",
-        status: "dnd",
-      },
+      // {
+      //   type: ActivityType.Listening,
+      //   text: "Do not disturb me🛑 ty",
+      //   status: "dnd",
+      // },
     ];
 
     const option = Math.floor(Math.random() * options.length);
