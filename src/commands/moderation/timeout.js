@@ -37,6 +37,16 @@ module.exports = {
     const reason = interaction.options.getString("reason");
 
     if (
+      member.user.bot ||
+      member.permissions.has(PermissionsBitField.Flags.Administrator)
+    ) {
+      return interaction.reply({
+        content: "Non puoi mettere in timeout un amministratore o un bot.",
+        ephemeral: true,
+      });
+    }
+
+    if (
       !interaction.member.permissions.has(
         PermissionsBitField.Flags.Administrator
       )
@@ -54,34 +64,16 @@ module.exports = {
       });
     }
 
-    let timeOutRole = interaction.guild.roles.cache.find(
-      (role) => role.name === "Time-Out"
-    );
-    if (!timeOutRole) {
-      try {
-        timeOutRole = await interaction.guild.roles.create({
-          name: "Time-Out",
-          color: "#808080",
-          permissions: [],
-        });
-      } catch (error) {
-        console.error("Error creating Time-Out role:", error);
-        return interaction.reply({
-          content: "An error occurred while creating Time-Out role.",
-          ephemeral: true,
-        });
-      }
-    }
-
     try {
-      await member.roles.add(timeOutRole);
-      // Aggiungi il membro al timeoutMember
-      const timeoutMember = new TimeoutMember({
+      await member.timeout(duration * 1000);
+
+      const timeoutEnd = new Date(Date.now() + duration * 1000);
+      const newTimeoutMember = new TimeoutMember({
         guildId: interaction.guildId,
         memberId: member.id,
-        timeoutEnd: new Date(Date.now() + duration * 1000),
+        timeoutEnd: timeoutEnd,
       });
-      await timeoutMember.save();
+      await newTimeoutMember.save();
 
       interaction.reply({
         content: `${
@@ -89,7 +81,7 @@ module.exports = {
         } has been put in time-out for ${formatDuration(
           duration
         )} with reason: ${reason || "No reason provided"}`,
-        ephemeral: true,
+        ephemeral: false,
       });
     } catch (error) {
       console.error("Error putting member in time-out:", error);
@@ -98,28 +90,6 @@ module.exports = {
         ephemeral: true,
       });
     }
-
-    setTimeout(async () => {
-      try {
-        if (member.roles.cache.has(timeOutRole.id)) {
-          await member.roles.remove(timeOutRole);
-
-          await TimeoutMember.deleteOne({
-            guildId: interaction.guildId,
-            memberId: member.id,
-          });
-
-          interaction.followUp({
-            content: `${member.displayName} has been released from time-out.`,
-          });
-        }
-      } catch (error) {
-        console.error("Error releasing member from time-out:", error);
-        interaction.followUp({
-          content: "An error occurred while releasing member from time-out.",
-        });
-      }
-    }, duration * 1000);
   },
 };
 

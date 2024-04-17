@@ -4,13 +4,13 @@ const GuildConfig = require("../../models/guildConfig");
 module.exports = {
   async execute(member) {
     try {
-      console.log(`guildMemberAdd event received for guild ${member.guild.id}`);
+      console.log(`guildMemberAdd event received for guild ${member.guild.name}`);
 
       const guildConfigCount = await GuildConfig.countDocuments({ guildId: member.guild.id });
-      console.log(`GuildConfig count for guild ${member.guild.id}:`, guildConfigCount);
+      console.log(`GuildConfig count for guild ${member.guild.name}:`, guildConfigCount);
 
       if (guildConfigCount > 1) {
-        console.warn(`Multiple GuildConfig documents found for guild ${member.guild.id}.`);
+        console.warn(`Multiple GuildConfig documents found for guild ${member.guild.name}.`);
       }
 
       const guildConfig = await GuildConfig.findOne({
@@ -58,7 +58,7 @@ module.exports = {
 
       await channel.send({ embeds: [embed] });
 
-      console.log(`Embed sent for guild ${member.guild.id}`);
+      console.log(`Embed sent for guild ${member.guild.name}`);
     } catch (error) {
       console.error("Error in guildMemberAdd event:", error);
     }

@@ -26,27 +26,21 @@ module.exports = {
       });
     }
 
-    const timeOutRole = interaction.guild.roles.cache.find(
-      (role) => role.name === "Time-Out"
-    );
-
-    if (!timeOutRole || !member.roles.cache.has(timeOutRole.id)) {
-      return interaction.reply({
-        content: `${member.displayName} is not currently in time-out.`,
-        ephemeral: true,
-      });
-    }
-
     try {
-      await member.roles.remove(timeOutRole);
+      const timeoutMember = await TimeoutMember.findOneAndUpdate(
+        {
+          guildId: interaction.guildId,
+          memberId: member.id,
+        },
+        { timeoutEnd: null },
+        { new: true }
+      );
 
-      const timeoutMember = await TimeoutMember.findOne({
-        guildId: interaction.guildId,
-        memberId: member.id,
-      });
-
-      if (timeoutMember) {
-        await timeoutMember.deleteOne();
+      if (!timeoutMember) {
+        return interaction.reply({
+          content: `${member.displayName} is not currently in time-out.`,
+          ephemeral: true,
+        });
       }
 
       interaction.reply({
