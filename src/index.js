@@ -53,4 +53,9 @@ client.on("guildMemberAdd", (member) => {
 
 client.on(welcomeEvent.name, (...args) => welcomeEvent.execute(...args));
 
+client.on("guildCreate", (guild) => {
+  const welcomeEvent = require("./events/client/welcomeEvent");
+  welcomeEvent.execute(guild, client);
+});
+
 client.login(process.env.TOKEN);

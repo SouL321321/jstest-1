@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  PermissionsBitField,
+  EmbedBuilder,
+} = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,12 +19,17 @@ module.exports = {
     ),
 
   async execute(interaction) {
+    if (
+      !interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)
+    ) {
+      return interaction.reply({
+        content: "You don't have permission to ban users.",
+        ephemeral: true,
+      });
+    }
+
     const targetUser = interaction.options.getUser("target");
     const reason = interaction.options.getString("reason");
-
-    if (!interaction.memberPermissions.has("BAN_MEMBERS")) {
-      return interaction.reply(`No permissions for ban!`);
-    }
 
     try {
       const targetMember = await interaction.guild.members.fetch(targetUser);
@@ -31,7 +40,9 @@ module.exports = {
 
       const banEmbed = new EmbedBuilder()
         .setTitle("User Banned")
-        .setDescription(`Successfully banned ${targetUser} from the server.`)
+        .setDescription(
+          `Successfully banned ${targetUser} (${targetUser.id}) from the server.`
+        )
         .setColor("DarkRed")
         .setThumbnail(targetMember.displayAvatarURL({ dynamic: true }))
         .addFields(
@@ -45,8 +56,14 @@ module.exports = {
             value: reason || "No reason specified",
             inline: true,
           },
-          { name: "Timestamp", value: new Date().toUTCString(), inline: true }
+          { name: "Timestamp", value: new Date().toUTCString(), inline: true },
+          {
+            name: "User ID",
+            value: `\`${targetUser.id}\` - [Click to copy](https://discord.com/oauth2/copy/${targetUser.id})`,
+            inline: true,
+          }
         );
+
       interaction.reply({ embeds: [banEmbed] });
     } catch (error) {
       console.error(`Error occurred while banning user: ${error}`);
