@@ -17,10 +17,10 @@ module.exports = {
         guildId: member.guild.id,
       });
 
-      if (!guildConfig) {
-        console.error("Configuration not found for this guild.");
+      if (!guildConfig || !guildConfig.welcomeChannelId || !guildConfig.welcomeRoleId) {
+        console.error("Invalid guild configuration or missing welcome channel or role.");
         return;
-      }
+      }      
 
       const { welcomeChannelId, welcomeRoleId } = guildConfig;
       const channel = member.guild.channels.cache.get(welcomeChannelId);

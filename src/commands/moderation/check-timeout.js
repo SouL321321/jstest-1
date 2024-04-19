@@ -7,7 +7,7 @@ const TimeoutMember = require("../../models/TimeoutMember");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("check-timeout")
+    .setName("timeout-check")
     .setDescription("Check the list of timed out members."),
   async execute(interaction) {
     try {
@@ -34,11 +34,14 @@ module.exports = {
       }
 
       const memberFields = [];
+      const timeoutMemberSet = new Set();
+
       for (const timeoutMember of timeoutMembers) {
         const guildMember = await interaction.guild.members.fetch(
           timeoutMember.memberId
         );
-        if (guildMember) {
+        if (guildMember && !timeoutMemberSet.has(guildMember.id)) {
+          timeoutMemberSet.add(guildMember.id);
           memberFields.push({
             name: guildMember.user.tag,
             value: `Timeout end: ${timeoutMember.timeoutEnd}`,

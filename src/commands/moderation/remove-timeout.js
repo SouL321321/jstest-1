@@ -3,7 +3,7 @@ const TimeoutMember = require("../../models/TimeoutMember");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("remove-timeout")
+    .setName("timeout-remove")
     .setDescription("Remove the time-out for a member.")
     .addUserOption((option) =>
       option
@@ -27,24 +27,23 @@ module.exports = {
     }
 
     try {
-      const timeoutMember = await TimeoutMember.findOneAndUpdate(
-        {
-          guildId: interaction.guildId,
-          memberId: member.id,
-        },
-        { timeoutEnd: null },
-        { new: true }
-      );
+      await member.timeout(null);
 
-      if (!timeoutMember) {
+      const deletedTimeoutMember = await TimeoutMember.findOneAndDelete({
+        guildId: interaction.guildId,
+        memberId: member.id,
+      });
+
+      if (!deletedTimeoutMember) {
         return interaction.reply({
-          content: `${member.displayName} is not currently in time-out.`,
+          content: `${member.displayName} was not found in the timeout list.`,
           ephemeral: true,
         });
       }
 
       interaction.reply({
         content: `${member.displayName} has been removed from time-out.`,
+        ephemeral: false,
       });
     } catch (error) {
       console.error("Error removing member from time-out:", error);

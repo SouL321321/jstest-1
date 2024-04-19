@@ -59,7 +59,7 @@ module.exports = {
           { name: "Timestamp", value: new Date().toUTCString(), inline: true },
           {
             name: "User ID",
-            value: `\`${targetUser.id}\` - [Click to copy](https://discord.com/oauth2/copy/${targetUser.id})`,
+            value: `\`${targetUser.id}\` - [Click to copy](${targetUser.id})`,
             inline: true,
           }
         );

@@ -4,7 +4,7 @@ require("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("landscapes")
+    .setName("img-landscapes")
     .setDescription("Get a landscape image"),
 
     async execute (interaction) {

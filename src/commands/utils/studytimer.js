@@ -15,6 +15,8 @@ function isValidSubject(subject) {
 
 async function getUtcOffset(location) {
   try {
+    if (!location) return 0;
+
     const response = await axios.get(
       `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
         location
@@ -38,11 +40,16 @@ async function getUtcOffset(location) {
   }
 }
 
-async function getRandomImage(apiKey) {
+async function getRandomImage() {
   try {
+    const unsplashApiKey = process.env.UNSPLASH_API;
     const response = await axios.get("https://api.unsplash.com/photos/random", {
       params: {
-        client_id: apiKey,
+        query: "random",
+        orientation: "landscape",
+      },
+      headers: {
+        Authorization: `Client-ID ${unsplashApiKey}`,
       },
     });
     return response.data.urls.regular;
@@ -55,18 +62,33 @@ async function getRandomImage(apiKey) {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("studytimer")
-    .setDescription("Start a study timer")
+    .setDescription("Start a study timer (UTC time🕐)")
     .addIntegerOption((option) =>
       option
         .setName("duration")
-        .setDescription("Duration of study time in minutes")
+        .setDescription(
+          "Duration of study time in minutes (How much time you want study?👀)"
+        )
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName("subject")
-        .setDescription("Subject to study (e.g., Math, Science)")
+        .setDescription("Subject to study")
         .setRequired(true)
+        .addChoices(
+          { name: "Math", value: "math" },
+          { name: "Science", value: "science" },
+          { name: "History", value: "history" },
+          { name: "Geography", value: "geography" },
+          { name: "Language Arts", value: "language arts" },
+          { name: "Physical Education", value: "physical education" },
+          { name: "Art", value: "art" },
+          { name: "Music", value: "music" },
+          { name: "Foreign Languages", value: "foreign languages" },
+          { name: "Computer Science", value: "computer science" },
+          { name: "Other", value: "other" }
+        )
     )
     .addStringOption((option) =>
       option
@@ -79,8 +101,7 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("location")
-        .setDescription("Your location (city, country, etc.)")
-        .setRequired(true)
+        .setDescription("Your location (It can give errors...)")
     ),
 
   async execute(interaction) {
@@ -131,11 +152,11 @@ module.exports = {
         });
       }
 
-      const startDateTime = moment.tz(startTime, "HH:mm", true, location).utc();
-
       const currentTime = moment.utc();
+      const startDateTime = moment.tz(startTime, "HH:mm", "Europe/Rome").utc();
+      const timeDifference = startDateTime.diff(currentTime);
 
-      if (startDateTime <= currentTime) {
+      if (timeDifference <= 0) {
         return await interaction.reply({
           content: "Please provide a start time in the future.",
           ephemeral: true,
@@ -148,7 +169,7 @@ module.exports = {
         .setDescription(
           `**Subject:** ${subject}\n**Duration:** ${duration} minutes\n**Start Time:** ${startDateTime.format(
             "HH:mm"
-          )}\n\nIt's time to start studying for ${duration} minutes!`
+          )}\n\nIt's time to start studying for ${duration} minutes! Wait the bot that will msg you`
         )
         .setImage(imageUrl)
         .setTimestamp();
@@ -163,6 +184,10 @@ module.exports = {
         startDateTime.valueOf() + duration * 60 * 1000 - currentTime.valueOf();
 
       setTimeout(async () => {
+        interaction.user.send(`It's time to start studying! 📚`);
+      }, delayUntilEnd);
+
+      setTimeout(async () => {
         const updatedEmbed = new EmbedBuilder()
           .setTitle("📚 Study Timer 🕒")
           .setColor("#ff0000")
@@ -172,16 +197,21 @@ module.exports = {
             )}\n\nStudy time is over! Go back to play!`
           )
           .setTimestamp();
-        await reply.edit({
-          embeds: [updatedEmbed],
+
+        const messageOptions = { embeds: [updatedEmbed], ephemeral: true };
+
+        await reply.edit(messageOptions);
+        await interaction.user.send({
+          content: "Study time is over! 🎉",
+          ephemeral: true,
         });
-        interaction.user.send(`Study time is over! 🎉`);
+
         isTimerActive = false;
       }, delayUntilEnd);
 
       setTimeout(async () => {
         interaction.user.send(`It's time to start studying! 📚`);
-      }, delayUntilEnd - 5 * 60 * 1000);
+      }, timeDifference);
     } catch (error) {
       console.error("Error starting study timer:", error);
       await interaction.reply(

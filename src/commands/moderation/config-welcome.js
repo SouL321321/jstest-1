@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 const GuildConfig = require("../../models/guildConfig");
 
 module.exports = {
@@ -8,7 +8,9 @@ module.exports = {
     .addChannelOption((option) =>
       option
         .setName("welcome-channel")
-        .setDescription("The welcome channel for the server.")
+        .setDescription(
+          "The welcome channel for send the welcome embed in the server."
+        )
         .setRequired(true)
     )
     .addRoleOption((option) =>
@@ -19,7 +21,11 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    if (!interaction.member.permissions.has("ADMINISTRATOR")) {
+    if (
+      !interaction.member.permissions.has(
+        PermissionsBitField.Flags.Administrator
+      )
+    ) {
       await interaction.reply("Only administrators can use this command.");
       return;
     }

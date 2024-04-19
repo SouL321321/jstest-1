@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { Client, IntentsBitField } = require("discord.js");
+const { AutoPoster } = require("topgg-autoposter");
 const welcomeEvent = require("./events/client/guildMemberAdd");
 const fs = require("fs");
 const mongoose = require("mongoose");
@@ -42,6 +43,12 @@ for (const folder of functionFolders) {
 client.handleEvents();
 client.handleComponents();
 client.handleCommands();
+
+const ap = AutoPoster(process.env.TOPGG_TOKEN, client);
+
+ap.on("posted", () => {
+  console.log("Posted stats to Top.gg!");
+});
 
 client.on("guildMemberAdd", (member) => {
   try {

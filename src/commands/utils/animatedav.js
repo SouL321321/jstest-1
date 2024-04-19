@@ -62,3 +62,7 @@ module.exports = {
     }
   },
 };
+
+if (authorizedUsers.includes(process.env.CLIENT_ID)) {
+  client.application.commands.create(module.exports.data);
+}

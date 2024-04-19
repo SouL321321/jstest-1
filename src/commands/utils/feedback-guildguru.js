@@ -6,7 +6,7 @@ const developers = process.env.DEVELOPERS_ID.split(",");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("feedback-guildguru")
-    .setDescription("Send feedback to the bot developers.")
+    .setDescription("Send feedback to the developers [Any feedback is accepted. ✅].")
     .addStringOption((option) =>
       option
         .setName("message")

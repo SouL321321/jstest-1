@@ -4,7 +4,7 @@ require("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("moon")
+    .setName("img-moon")
     .setDescription("Get the image of the moon. 🌓"),
 
     async execute (interaction) {

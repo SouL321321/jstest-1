@@ -81,7 +81,7 @@ module.exports = {
         })
         .setTimestamp();
 
-      interaction.reply({ embeds: [deleteEmbed], ephemeral: false });
+      interaction.reply({ embeds: [deleteEmbed], ephemeral: true });
     } catch (error) {
       console.error("Error deleting messages:", error);
 

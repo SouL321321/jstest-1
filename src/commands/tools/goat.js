@@ -3,24 +3,24 @@ const axios = require("axios");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("goat-sheep-bighom")
+    .setName("img-goat-sheep-bighom")
     .setDescription("Get a random goat, sheep, or bighorn image."),
 
-  async execute(interaction) {
-    try {
-      const unsplashApiKey = process.env.UNSPLASH_API;
-      const response = await axios.get(
-        "https://api.unsplash.com/photos/random",
-        {
-          params: {
-            query: "goat",
-            orientation: "landscape",
-          },
-          headers: {
-            Authorization: `Client-ID ${unsplashApiKey}`,
-          },
-        }
-      );
+    async execute(interaction) {
+      try {
+        const unsplashApiKey = process.env.UNSPLASH_API;
+        const response = await axios.get(
+          "https://api.unsplash.com/photos/random",
+          {
+            params: {
+              query: "goat",
+              orientation: "landscape",
+            },
+            headers: {
+              Authorization: `Client-ID ${unsplashApiKey}`,
+            },
+          }
+        );
 
       const imageUrl = response.data.urls.full;
 
