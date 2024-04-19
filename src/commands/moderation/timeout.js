@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField, EmbedBuilder } = require("discord.js");
 const TimeoutMember = require("../../models/TimeoutMember");
 
 module.exports = {
@@ -41,7 +41,7 @@ module.exports = {
       member.permissions.has(PermissionsBitField.Flags.Administrator)
     ) {
       return interaction.reply({
-        content: "Non puoi mettere in timeout un amministratore o un bot.",
+        content: "You cannot timeout administrators or bots.",
         ephemeral: true,
       });
     }
@@ -75,14 +75,22 @@ module.exports = {
       });
       await newTimeoutMember.save();
 
-      interaction.reply({
-        content: `${
-          member.displayName
-        } has been put in time-out for ${formatDuration(
-          duration
-        )} with reason: ${reason || "No reason provided"}`,
-        ephemeral: false,
-      });
+      const embed = new EmbedBuilder()
+        .setColor("#ff0000")
+        .setTitle("Member Time-Out")
+        .setDescription(
+          `${member.displayName} has been put in time-out for ${formatDuration(
+            duration
+          )} with reason: ${reason || "No reason provided"}  ||Stop Please||`
+        )
+        .setImage("https://as2.ftcdn.net/v2/jpg/01/85/73/43/1000_F_185734349_eVerlX4SvMyadhmxjmq0s6kMuo2mRozw.jpg")
+        .setFooter({
+          text: `Server: ${interaction.guild.name}`,
+          iconURL: interaction.guild.iconURL(),
+        })
+        .toJSON();
+
+      interaction.reply({ embeds: [embed], ephemeral: false });
     } catch (error) {
       console.error("Error putting member in time-out:", error);
       interaction.reply({

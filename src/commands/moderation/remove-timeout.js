@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField, EmbedBuilder } = require("discord.js");
 const TimeoutMember = require("../../models/TimeoutMember");
 
 module.exports = {
@@ -27,24 +27,21 @@ module.exports = {
     }
 
     try {
+      // Rimuovi il timeout dell'utente
       await member.timeout(null);
 
-      const deletedTimeoutMember = await TimeoutMember.findOneAndDelete({
+      // Rimuovi l'utente dal database dei timeout
+      await TimeoutMember.findOneAndDelete({
         guildId: interaction.guildId,
         memberId: member.id,
       });
 
-      if (!deletedTimeoutMember) {
-        return interaction.reply({
-          content: `${member.displayName} was not found in the timeout list.`,
-          ephemeral: true,
-        });
-      }
+      const embed = new EmbedBuilder()
+        .setColor("#00ff00")
+        .setDescription(`${member.displayName} has been removed from time-out. ✅`)
+        .toJSON();
 
-      interaction.reply({
-        content: `${member.displayName} has been removed from time-out.`,
-        ephemeral: false,
-      });
+      interaction.reply({ embeds: [embed], ephemeral: false });
     } catch (error) {
       console.error("Error removing member from time-out:", error);
       interaction.reply({

@@ -33,10 +33,16 @@ module.exports = {
         });
       }
 
+      const currentTime = new Date();
+
       const memberFields = [];
       const timeoutMemberSet = new Set();
 
       for (const timeoutMember of timeoutMembers) {
+        if (currentTime > timeoutMember.timeoutEnd) {
+          continue;
+        }
+
         const guildMember = await interaction.guild.members.fetch(
           timeoutMember.memberId
         );
