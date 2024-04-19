@@ -57,14 +57,32 @@ module.exports = {
             inline: true,
           },
           { name: "Timestamp", value: new Date().toUTCString(), inline: true },
-          {
-            name: "User ID",
-            value: `\`${targetUser.id}\` - [Click to copy](${targetUser.id})`,
-            inline: true,
-          }
+          { name: "User ID", value: `${targetUser.id}`, inline: true }
         );
 
-      interaction.reply({ embeds: [banEmbed] });
+      const message = await interaction.channel.send({ embeds: [banEmbed] });
+
+      await message.react("📋");
+
+      const filter = (reaction, user) => {
+        return reaction.emoji.name === "📋" && user.id === interaction.user.id;
+      };
+
+      message
+        .awaitReactions({ filter, max: 1, time: 60000, errors: ["time"] })
+        .then((collected) => {
+          const reaction = collected.first();
+
+          if (reaction) {
+            interaction.user.send({
+              content: `${targetUser.id}`,
+              ephemeral: false,
+            });
+          }
+        })
+        .catch(() => {
+          console.log("No reaction after 60 seconds.");
+        });
     } catch (error) {
       console.error(`Error occurred while banning user: ${error}`);
       interaction.reply(`An error occurred while banning the user.`);

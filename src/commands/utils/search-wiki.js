@@ -3,7 +3,7 @@ const wiki = require("wikijs").default();
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("search-wiki")
+    .setName("wikipedia")
     .setDescription("Ask Wikipedia!🌍")
     .addStringOption((option) =>
       option
