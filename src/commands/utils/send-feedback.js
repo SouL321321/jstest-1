@@ -5,7 +5,6 @@ const {
   PermissionsBitField,
 } = require("discord.js");
 const FeedbackModel = require("../../models/feedback");
-const developers = process.env.DEVELOPERS_ID;
 
 async function countFeedbacksToday(userId) {
   const startOfToday = new Date();
@@ -22,6 +21,7 @@ async function countFeedbacksToday(userId) {
 }
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("send-feedback")
     .setDescription("Send feedback to the administrators. (Max 3 per day.)")
@@ -78,6 +78,15 @@ module.exports = {
             },
             {
               id: interaction.client.user.id,
+              allow: [
+                PermissionsBitField.Flags.SendMessages,
+                PermissionsBitField.Flags.ViewChannel,
+              ],
+            },
+            {
+              id: interaction.guild.roles.cache.find((role) =>
+                role.permissions.has(PermissionsBitField.Flags.Administrator)
+              ).id,
               allow: [
                 PermissionsBitField.Flags.SendMessages,
                 PermissionsBitField.Flags.ViewChannel,

@@ -3,6 +3,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("img-landscapes")
     .setDescription("Get a landscape image"),

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("server")
     .setDescription("Display server information📴"),

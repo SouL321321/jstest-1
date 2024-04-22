@@ -83,7 +83,6 @@ module.exports = {
             duration
           )} with reason: ${reason || "No reason provided"}  ||Stop Please||`
         )
-        .setImage("https://as2.ftcdn.net/v2/jpg/01/85/73/43/1000_F_185734349_eVerlX4SvMyadhmxjmq0s6kMuo2mRozw.jpg")
         .setFooter({
           text: `Server: ${interaction.guild.name}`,
           iconURL: interaction.guild.iconURL(),

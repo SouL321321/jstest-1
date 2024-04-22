@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("bot")
     .setDescription("Get bot info or bot stats")

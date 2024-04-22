@@ -8,6 +8,7 @@ const {
 const axios = require("axios");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("earthquake")
     .setDescription("Retrieve earthquake data from USGS"),

@@ -1,14 +1,11 @@
-const {
-  SlashCommandBuilder,
-  EmbedBuilder,
-  PermissionsBitField,
-} = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require("discord.js");
 const TimeoutMember = require("../../models/TimeoutMember");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("timeout-check")
     .setDescription("Check the list of timed out members."),
+
   async execute(interaction) {
     try {
       if (
@@ -34,7 +31,6 @@ module.exports = {
       }
 
       const currentTime = new Date();
-
       const memberFields = [];
       const timeoutMemberSet = new Set();
 
@@ -48,9 +44,21 @@ module.exports = {
         );
         if (guildMember && !timeoutMemberSet.has(guildMember.id)) {
           timeoutMemberSet.add(guildMember.id);
+
+          const formattedDate = new Date(timeoutMember.timeoutEnd);
+          const dateString = formattedDate.toLocaleDateString("en-GB", {
+            month: "2-digit",
+            day: "2-digit",
+            year: "numeric",
+          });
+          const timeString = formattedDate.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+
           memberFields.push({
             name: guildMember.user.tag,
-            value: `Timeout end: ${timeoutMember.timeoutEnd}`,
+            value: `Timeout end: ${dateString} | ${timeString} (CET)`,
             inline: true,
           });
         }

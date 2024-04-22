@@ -121,7 +121,7 @@ module.exports = {
       const msg = await interaction.reply({
         embeds: [embed],
         components: [row, row1, row2, row3, row4],
-        ephemeral: false,
+        ephemeral: true,
       });
 
       let data = "";
@@ -167,7 +167,7 @@ module.exports = {
               .setDescription(`\`\`\`\n${data || extra}\n\`\`\``),
           ],
           components: [row, row1, row2, row3, row4],
-          ephemeral: false,
+          ephemeral: true,
         });
       });
     } catch (error) {

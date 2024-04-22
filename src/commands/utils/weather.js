@@ -4,6 +4,7 @@ const { Big } = require("big.js");
 
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("weather")
     .setDescription("Get weather forecast for a location☁")

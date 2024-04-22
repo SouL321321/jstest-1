@@ -3,8 +3,8 @@ const { Trivia } = require("discord-gamecord");
 
 module.exports = {
   data: new SlashCommandBuilder()
-  .setName("trivia")
-  .setDescription("Start a game to trivia"),
+    .setName("trivia")
+    .setDescription("Start a game of trivia"),
 
   async execute(interaction) {
     const Game = new Trivia({
@@ -13,7 +13,7 @@ module.exports = {
       embed: {
         title: "Trivia",
         color: "#5865F2",
-        description: "You have 20 secs to guess the answer."
+        description: "⏲ You have 20 secs to guess the answer.",
       },
       timeoutTime: 20000,
       buttonStyle: "PRIMARY",
@@ -21,15 +21,30 @@ module.exports = {
       falseButtonStyle: "DANGER",
       mode: "multiple",
       difficulty: "medium",
-      winMessage: "You won! The correct answer is {answer}.",
-      loseMessage: "You lost! The correct answer is {answer}.",
-      errMessage: "Unable to fetch question data! Please try again.",
-      playerOnlyMessage: "only {player} can use the these buttons."
+      winMessage: "✅ You won!\n The correct answer is {answer}.",
+      loseMessage: "❌ You lost!\n The correct answer is {answer}.",
+      errMessage: "🚫 Unable to fetch question data! Please try again.",
+      playerOnlyMessage: "only {player} can use these buttons.",
     });
 
     Game.startGame();
-    Game.on("GameOver", result => {
-      console.log(result);
+    Game.on("GameOver", (result) => {
+      const embedColor = result.win ? "#00FF00" : "#FF0000";
+      const embed = {
+        title: "Trivia",
+        color: embedColor,
+        description: result.win ? Game.winMessage : Game.loseMessage,
+      };
+      interaction.reply({ embeds: [embed] });
     });
-  }
+
+    Game.on("GameTimeout", () => {
+      const embed = {
+        title: "Trivia",
+        color: "#FFFF00", // Yellow color for timeout
+        description: "⌛ Time's up!",
+      };
+      interaction.reply({ embeds: [embed] });
+    });
+  },
 };

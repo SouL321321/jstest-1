@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("asteroids")
     .setDescription(
@@ -27,8 +28,8 @@ module.exports = {
         asteroids.forEach((asteroid, index) => {
           if (asteroidCount < 15) {
             asteroidEmbed.addFields({
-              name: `**Name:**              `,
-              value: `**${asteroid.name}**\n*Closet Approach Date:**  ${asteroid.close_approach_data[0].close_approach_date_full}\n**Relative Velocity (km/h):** ${asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour}\n**Miss Distance (kilometers):** ${asteroid.close_approach_data[0].miss_distance.kilometers}`,
+              name: "\u200B",
+              value: `**Name:** ${asteroid.name}\n\n**Closet Approach Date:** ${asteroid.close_approach_data[0].close_approach_date_full}\n\n**Relative Velocity (km/h):** ${asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour}\n\n**Miss Distance (kilometers):** ${asteroid.close_approach_data[0].miss_distance.kilometers}`,
               inline: true,
             });
             asteroidCount++;

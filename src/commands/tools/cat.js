@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("img-cat")
     .setDescription("Send a random cat image"),

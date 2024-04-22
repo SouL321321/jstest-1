@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 // const { profileImage } = require("discord-arts");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("member-info")
     .setDescription(

@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const wiki = require("wikijs").default();
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("wikipedia")
     .setDescription("Ask Wikipedia!🌍")
