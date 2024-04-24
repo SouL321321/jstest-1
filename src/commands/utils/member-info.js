@@ -33,9 +33,10 @@ module.exports = {
 
     try {
       const fetchedMembers = await interaction.guild.members.fetch();
-      const sortedMembers = Array.from(fetchedMembers).sort(
+      const sortedMembers = fetchedMembers.sort(
         (a, b) => a.joinedAt - b.joinedAt
       );
+
       const joinPosition =
         sortedMembers.findIndex((m) => m[1].id === member.id) + 1;
 

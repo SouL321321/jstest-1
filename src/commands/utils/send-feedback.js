@@ -24,7 +24,7 @@ module.exports = {
   countdown: true,
   data: new SlashCommandBuilder()
     .setName("send-feedback")
-    .setDescription("Send feedback to the administrators. (Max 3 per day.)")
+    .setDescription("Send feedback to the administrators for rate the server or give tips. (Max 3 per day.)")
     .addStringOption((option) =>
       option
         .setName("message")

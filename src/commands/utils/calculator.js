@@ -56,8 +56,8 @@ module.exports = {
           .setCustomId(idPrefix + "_3")
           .setStyle(ButtonStyle.Secondary),
         new ButtonBuilder()
-          .setLabel("/")
-          .setCustomId(idPrefix + "_/")
+          .setLabel("÷")
+          .setCustomId(idPrefix + "_÷")
           .setStyle(ButtonStyle.Primary)
       );
 
@@ -75,8 +75,8 @@ module.exports = {
           .setCustomId(idPrefix + "_6")
           .setStyle(ButtonStyle.Secondary),
         new ButtonBuilder()
-          .setLabel("*")
-          .setCustomId(idPrefix + "_*")
+          .setLabel("×")
+          .setCustomId(idPrefix + "_×")
           .setStyle(ButtonStyle.Primary)
       );
 

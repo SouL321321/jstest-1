@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -19,7 +19,7 @@ module.exports = {
     const reason =
       interaction.options.getString("reason") || "No reason provided";
 
-    if (!interaction.memberPermissions.has("KICK_MEMBERS")) {
+    if (!interaction.memberPermissions.has(PermissionsBitField.Flags.KickMembers)) {
       return interaction.reply(`You don't have permission to kick members!`);
     }
 

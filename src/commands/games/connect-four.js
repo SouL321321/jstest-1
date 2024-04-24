@@ -17,6 +17,7 @@ module.exports = {
       opponent: interaction.options.getUser("opponent"),
       embed: {
         title: "Connect4 Game",
+        description: "Connect 4 tokens in horizontal, vertical or diagonal.",
         statusTitle: "Status",
         color: "#5865F2",
       },
@@ -26,7 +27,7 @@ module.exports = {
         player2: "🟡",
       },
       mentionUser: true,
-      timeoutTime: 60000,
+      timeoutTime: 300000,
       buttonStyle: "PRIMARY",
       turnMessage: "{emoji} | Its turn of player **{player}**.",
       winMessage: "{emoji} | **{player}** won the Connect4 Game.",

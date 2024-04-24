@@ -24,11 +24,11 @@ module.exports = {
       if (userData.has(interaction.user.id)) {
         const futureTime = userData.get(interaction.user.id, timeData, true);
 
-        const RemeingTime = futureTime + 12; //The remaining time was 10-12 seconds
+        const RemainingTime = futureTime + 12; //The remaining time was 10-12 seconds
 
         const timeEmbed = new EmbedBuilder()
           .setColor("DarkRed")
-          .setTitle(`❗ | Countdown: <t:${RemeingTime}:R>`);
+          .setTitle(`❗ | Countdown: <t:${RemainingTime}:R>`);
 
         //Send the Embed if the User have a Countdown
         return interaction.reply({
@@ -48,7 +48,7 @@ module.exports = {
         setTimeout(async () => {
           timeData.delete(timeData);
           userData.delete(interaction.user.id);
-        }, 10000); //10 Seconds than  it will delete the data frome the Map
+        }, 10000); //10 Seconds than  it will delete the data from the Map
       }
     }
 
