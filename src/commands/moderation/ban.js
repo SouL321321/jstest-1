@@ -5,6 +5,7 @@ const {
 } = require("discord.js");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("ban")
     .setDescription("Ban a user")

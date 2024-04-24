@@ -10,6 +10,7 @@ const {
 const math = require("mathjs");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("calculator")
     .setDescription("Need help with some math ?")

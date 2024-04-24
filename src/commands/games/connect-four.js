@@ -1,6 +1,7 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { Connect4 } = require("discord-gamecord");
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName(`connect4`)
     .setDescription(`Play a game of connect 4`)

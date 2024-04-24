@@ -6,6 +6,7 @@ const {
 const TimeoutMember = require("../../models/TimeoutMember");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("timeout-remove")
     .setDescription("Remove the time-out for a member.")

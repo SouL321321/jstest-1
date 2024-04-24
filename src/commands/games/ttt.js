@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("discord.js");
 const { TicTacToe } = require("discord-gamecord");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("tic-tac-toe")
     .setDescription("Start a Tic-Tac-Toe game.")

@@ -33,12 +33,12 @@ module.exports = {
 
     try {
       const fetchedMembers = await interaction.guild.members.fetch();
-      const sortedMembers = fetchedMembers.sort(
+      const sortedMembers = Array.from(fetchedMembers.values()).sort(
         (a, b) => a.joinedAt - b.joinedAt
       );
 
       const joinPosition =
-        sortedMembers.findIndex((m) => m[1].id === member.id) + 1;
+        sortedMembers.findIndex((m) => m.id === member.id) + 1;
 
       // let profileBuffer;
       // try {

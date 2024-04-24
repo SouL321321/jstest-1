@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("discord.js");
 const { Trivia } = require("discord-gamecord");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("trivia")
     .setDescription("Start a game of trivia"),

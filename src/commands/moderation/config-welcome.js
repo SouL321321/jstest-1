@@ -2,6 +2,7 @@ const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 const GuildConfig = require("../../models/guildConfig");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("configure")
     .setDescription("Configure bot welcome settings.")

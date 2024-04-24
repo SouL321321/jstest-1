@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require("discord.js");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("kick")
     .setDescription("Kick a user")

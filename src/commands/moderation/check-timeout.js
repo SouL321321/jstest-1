@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require("disc
 const TimeoutMember = require("../../models/TimeoutMember");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("timeout-check")
     .setDescription("Check the list of timed out members."),

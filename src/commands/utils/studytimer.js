@@ -60,8 +60,9 @@ async function getRandomImage() {
 }
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
-    .setName("studytimer")
+    .setName("study-timer")
     .setDescription("Start a study timer (UTC time🕐)")
     .addIntegerOption((option) =>
       option

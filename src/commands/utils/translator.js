@@ -8,6 +8,7 @@ const {
 const translate = require("@iamtraction/google-translate");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("translates")
     .setDescription("translates everything")

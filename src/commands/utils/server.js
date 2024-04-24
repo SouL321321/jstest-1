@@ -11,8 +11,9 @@ const {
 } = require("discord.js");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
-    .setName("serverinfo")
+    .setName("server-info")
     .setDescription("Displays information about the server."),
   /**
    * @param {ChatInputCommandInteraction} interaction

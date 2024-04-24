@@ -4,6 +4,7 @@ const BotFeedbackModel = require("../../models/bot-feedack");
 const developers = process.env.DEVELOPERS_ID.split(",");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("feedback-guildguru")
     .setDescription("Send feedback to the developers [Any feedback is accepted. ✅].")

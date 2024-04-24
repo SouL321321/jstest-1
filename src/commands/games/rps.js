@@ -2,6 +2,7 @@ const { SlashCommandBuilder, userMention } = require("discord.js");
 const { RockPaperScissors } = require("discord-gamecord");
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("rock-paper-scissors")
     .setDescription("Play a game of rock(👊) - paper(✋) - scissors(✌)")

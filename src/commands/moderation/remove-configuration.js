@@ -3,7 +3,7 @@ const GuildConfig = require("../../models/guildConfig");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("remove-configuration")
+    .setName("configure-remove")
     .setDescription("Remove bot welcome settings configuration."),
 
   async execute(interaction) {

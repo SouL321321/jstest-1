@@ -8,6 +8,7 @@ const developerIDs = ["567580659032391681", "540617704005042201"];
 const usageCounts = new Map();
 
 module.exports = {
+  countdown: true,
   data: new SlashCommandBuilder()
     .setName("delete")
     .setDescription("Delete a specified number of messages in the channel.")
