@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 const { Connect4 } = require("discord-gamecord");
 module.exports = {
   countdown: true,

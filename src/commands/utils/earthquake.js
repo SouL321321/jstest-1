@@ -22,6 +22,7 @@ module.exports = {
             format: "geojson",
             limit: 10,
             minmagnitude: 2,
+            orderby: "time",
           },
         }
       );

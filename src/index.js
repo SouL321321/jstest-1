@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client, IntentsBitField } = require("discord.js");
+const { Client, IntentsBitField, Partials } = require("discord.js");
 const { AutoPoster } = require("topgg-autoposter");
 const welcomeEvent = require("./events/client/guildMemberAdd");
 const fs = require("fs");
@@ -19,6 +19,7 @@ const client = new Client({
     IntentsBitField.Flags.GuildModeration,
     IntentsBitField.Flags.AutoModerationConfiguration,
   ],
+  partials: [Partials.Channel],
   debug: true,
 });
 
@@ -48,6 +49,16 @@ const ap = AutoPoster(process.env.TOPGG_TOKEN, client);
 
 ap.on("posted", () => {
   console.log("Posted stats to Top.gg!");
+});
+
+client.on("messageCreate", async (message) => {
+  if (message.guild) return;
+  await client.channels.cache
+    .get(process.env.CHANNEL_LOG)
+    .send(
+      ` **New DM Received** \n**By** - ${message.author} \n**Message** - ${message.content} `
+    );
+  return;
 });
 
 client.on("guildMemberAdd", (member) => {

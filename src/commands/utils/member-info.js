@@ -1,3 +1,6 @@
+//Credits for help: Nexus20060 (772588871606468611)
+
+
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 // const { profileImage } = require("discord-arts");
 
@@ -33,12 +36,8 @@ module.exports = {
 
     try {
       const fetchedMembers = await interaction.guild.members.fetch();
-      const sortedMembers = Array.from(fetchedMembers.values()).sort(
-        (a, b) => a.joinedAt - b.joinedAt
-      );
-
-      const joinPosition =
-        sortedMembers.findIndex((m) => m.id === member.id) + 1;
+      const sortedMembers = Array.from(fetchedMembers.values()).sort((a, b) => a.joinedAt - b.joinedAt);
+      const joinPosition = sortedMembers.findIndex((m) => m.id === member.id) + 1;
 
       // let profileBuffer;
       // try {
@@ -51,12 +50,8 @@ module.exports = {
       //   ? new AttachmentBuilder(profileBuffer, { name: "profile.png" })
       //   : null;
 
-      const topRoles = member.roles.cache
-        .sort((a, b) => b.position - a.position)
-        .map((role) => role)
-        .slice(0, 3);
+      const topRoles = member.roles.cache.sort((a, b) => b.rawPosition - a.rawPosition).map((role) => role).slice(0, 3);
 
-      const userBadges = member.user.flags.toArray();
 
       const joinTime = parseInt(member.joinedTimestamp / 1000);
       const createdTime = parseInt(member.user.createdTimestamp / 1000);
@@ -69,23 +64,17 @@ module.exports = {
           name: `${member.user.tag} | General Information`,
           iconURL: member.displayAvatarURL(),
         })
-        .setDescription(
-          `On <t:${joinTime}:D>, ${
-            member.user.username
-          } joined as the **${addSuffix(joinPosition)}** member of this guild`
-        )
+        .setDescription(`On <t:${joinTime}:D>, ${member.user.username} joined as the **${addSuffix(joinPosition)}** member of this guild`)
         .addFields(
           {
             name: "Badges",
-            value: `${addBadges(userBadges).join("")}`,
+            value: getUserBadges(member.user).join(""),
             inline: true,
           },
           { name: "Booster", value: boosterStatus, inline: true },
           {
             name: "Top Roles",
-            value: `${topRoles
-              .join("\n")
-              .replace(`<@${interaction.guildId}>`)}`,
+            value: topRoles.join("\n").replace("@everyone"),
             inline: false,
           },
           { name: "Created", value: `<t:${createdTime}:R>`, inline: true },
@@ -113,7 +102,7 @@ module.exports = {
         content: "An error occurred. Please contact the developers!",
       });
     }
-  },
+  }
 };
 
 function addSuffix(number) {
@@ -129,37 +118,67 @@ function addSuffix(number) {
   return number + "th";
 }
 
-function addBadges(badgeNames) {
-  const badgeMap = {
-    ActiveDeveloper: "<:activedeveloper:1216582495651233902>",
-    BugHunterLevel1: "<:discordbughunter1:1216582503129681981>",
-    BugHunterLevel2: "<:discordbughunter2:1216582505453584575>",
-    PremiumEarlySupporter: "<:discordearlysupporter:1216582506871128156>",
-    Partner: "<:discordpartner:1216582512785231882>",
-    Staff: "<:discordstaff:1216582514643042304>",
-    Username: "<:username:1229824401038508052>",
-    HypeSquadOnlineHouse1: "<:hypesquadbravery:1216582518476767282>",
-    HypeSquadOnlineHouse2: "<:hypesquadbrilliance:1216582520573923328>",
-    HypeSquadOnlineHouse3: "<:hypesquadbalance:1216582516602044456>",
-    Hypesquad: "<:hypesquadevents:1216582556846264411>",
-    CertifiedModerator: "<:discordmod:1216582508498518066>",
-    CertifiedDeveloper: "<:discordbotdev:1216582500818620456>",
-    DiscordNitro: "<:discordnitro:1216582511178809375>",
-    DiscordBoost1: "<:discordboost1:1229831185178296420>",
-    DiscordBoost2: "<:discordboost2:1229831212546261032>",
-    DiscordBoost3: "<:discordboost3:1229831214391754853>",
-    DiscordBoost7: "<:discordboost7:1216582498578993163>",
-  };
-
-  const badges = [];
-
-  if (badgeNames.includes("<:discordnitro:1216582511178809375>")) {
-    badges.push(badgeMap["DiscordNitro"]);
+function getUserBadges(user) {
+  function badgeSettings() {
+    const badgeList = {
+      ActiveDeveloper: "<:activedeveloper:1216582495651233902>",
+      BugHunterLevel1: "<:discordbughunter1:1216582503129681981>",
+      BugHunterLevel2: "<:discordbughunter2:1216582505453584575>",
+      PremiumEarlySupporter: "<:discordearlysupporter:1216582506871128156>",
+      Partner: "<:discordpartner:1216582512785231882>",
+      Staff: "<:discordstaff:1216582514643042304>",
+      Username: "<:username:1229824401038508052>",
+      HypeSquadOnlineHouse1: "<:hypesquadbravery:1216582518476767282>",
+      HypeSquadOnlineHouse2: "<:hypesquadbrilliance:1216582520573923328>",
+      HypeSquadOnlineHouse3: "<:hypesquadbalance:1216582516602044456>",
+      Hypesquad: "<:hypesquadevents:1216582556846264411>",
+      CertifiedModerator: "<:discordmod:1216582508498518066>",
+      CertifiedDeveloper: "<:discordbotdev:1216582500818620456>",
+      DiscordNitro: "<:discordnitro:1216582511178809375>",
+      DiscordBoost1: "<:discordboost1:1229831185178296420>",
+      DiscordBoost2: "<:discordboost2:1229831212546261032>",
+      DiscordBoost3: "<:discordboost3:1229831214391754853>",
+      DiscordBoost7: "<:discordboost7:1216582498578993163>",
+    }
+    const badge_order = {
+      "Staff": 0,
+      "Partner": 1,
+      "CertifiedModerator": 2,
+      "Hypesquad": 3,
+      "HypeSquadOnlineHouse1": 4,
+      "HypeSquadOnlineHouse2": 5,
+      "HypeSquadOnlineHouse3": 6,
+      "BugHunterLevel1": 7,
+      "BugHunterLevel2": 8,
+      "ActiveDeveloper": 9,
+      "CertifiedDeveloper": 10,
+      "PremiumEarlySupporter": 11,
+    }
+    return { badgeList, badge_order }
   }
 
-  if (badgeNames && badgeNames.length > 0) {
-    return badgeNames.map((badgeName) => badgeMap[badgeName]).filter(Boolean);
-  } else {
-    return ["⚠️ No badges ⚠️"];
+  const setting = badgeSettings();
+  let badges = [];
+
+  // add the user badges
+  user.flags.toArray().forEach(badge => {
+    badges.push(setting.badgeList[badge]);
+  });
+
+  // checks if the user has an banner or an animated avatar
+  if (user.banner || user.displayAvatarURL().includes("a_")) {
+    badges.push(setting.badgeList["DiscordNitro"]);
   }
+
+  // checks if the user's discriminator is 0000 and is was created before this date
+  if (user.discriminator === "0" && user.createdAt <= new Date(1690535839000)) {
+    badges.push(setting.badgeList["Username"]);
+  }
+
+  // sort the badges
+  badges = badges.sort((a, b) => setting.badge_order[a] - setting.badge_order[b]) 
+
+  if(badges.length == 0) badges.push("No Badges")
+
+  return badges;
 }
