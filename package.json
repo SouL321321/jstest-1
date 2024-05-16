@@ -9,7 +9,7 @@
     "start": "node ."
   },
   "keywords": [],
-  "author": "",
+  "author": "dot._.dot, Respect10",
   "license": "ISC",
   "dependencies": {
     "@discordjs/builders": "^1.7.0",

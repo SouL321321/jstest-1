@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const welcomeEvSchema = new mongoose.Schema({
   guildId: {
@@ -12,6 +12,6 @@ const welcomeEvSchema = new mongoose.Schema({
   },
 });
 
-const WelcomeEv = mongoose.model('WelcomeEv', welcomeEvSchema);
+const WelcomeEv = mongoose.model("WelcomeEv", welcomeEvSchema);
 
 module.exports = WelcomeEv;
