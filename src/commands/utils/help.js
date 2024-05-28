@@ -1,27 +1,61 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const fs = require("fs");
+const buttonPagination = require("../../events/client/buttonPagination");
+const footerData = require("../../messageConfig.json");
 
 module.exports = {
-  countdown: true,
   data: new SlashCommandBuilder()
     .setName("help")
-    .setDescription("Show all available commands"),
+    .setDescription("List of commands 📔"),
 
-  async execute(interaction) {
+  async execute (interaction, client) {
     try {
-      const commands = interaction.client.commands;
+      const commandFolders = fs.readdirSync("./src/commands");
+      const helpEmbeds = [];
 
-      const commandNames = commands.map((command) => command.data.name).sort();
+      for (const folder of commandFolders) {
+        const commandFiles = fs.readdirSync(`./src/commands/${folder}`).filter(file => file.endsWith(".js"));
 
-      const embed = new EmbedBuilder()
-        .setTitle("🆘**Available Commands**🆘")
-        .setDescription(commandNames.map(name => `• ${name}`).join("\n"))
-        .setColor(0xc0c0c0);
+        const categoryEmbed = new EmbedBuilder()
+          .setTitle(folder)
+          .setFooter({ text: footerData.footerText })
+          .setTimestamp()
+          .setThumbnail(client.user.displayAvatarURL());
 
-      await interaction.reply({ embeds: [embed] });
-    } catch (error) {
-      console.error(`Error executing /help command: ${error.message}`);
-      await interaction.reply("An error occurred while executing the command.");
+        const subcommands = [];
+
+        for (const file of commandFiles) {
+          const command = require(`../${folder}/${file}`);
+
+          if (command.deleted) {
+            continue;
+          }
+
+          const description = `${command.data.description || "No description provided."}`;
+
+          if (command.data.type === "SUB_COMMAND" || command.data.type === "SUB_COMMAND_GROUP") {
+            subcommands.push(command);
+          } else {
+            categoryEmbed.addFields({
+              name: `/${command.data.name}`,
+              value: description,
+            });
+          }
+        }
+
+        if (subcommands.length > 0) {
+          categoryEmbed.addFields({
+            name: "Subcommands",
+            value: subcommands.map(subcommand => `/${subcommand.data.name}`).join("\n"),
+          });
+        }
+
+        helpEmbeds.push(categoryEmbed);
+      }
+
+      await buttonPagination(interaction, helpEmbeds);
+    } catch (err) {
+      console.log(err);
     }
   },
 };

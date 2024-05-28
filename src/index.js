@@ -76,4 +76,9 @@ client.on("guildCreate", (guild) => {
   welcomeEvent.execute(guild, client);
 });
 
+client.on("messageCreate", async (message) => {
+  const antiLinkSystem = require("./events/client/antiLink");
+  antiLinkSystem.execute(message);
+})
+
 client.login(process.env.TOKEN);

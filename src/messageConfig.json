@@ -1,0 +1,15 @@
+{
+    "embedColorSuccess": "#00D26A",
+    "embedColorWarning": "FFCC4D",
+    "embedColorError": "FB2F61",
+  
+    "embedErrorMessage": "Errore rilevato! ⚠️",
+  
+    "commandDevOnly": "Questo comando può essere eseguito solo dall'owner/developer.",
+    "commandTestMode": "Questo comando è in development, attualmente è fuori uso. ⛔",
+    "commandPremiumOnly": "Questo comando può essere usato solo dagli utenti premium.",
+  
+    "userNoPermissions": "Non hai i permessi per interagire con questo comando! ⛔",
+    "botNoPermissions": "Mi spiace, non ho i permessi per usare questo comando.",
+    "footerText": "Guild Guru - 2023/24 by KitaturA"
+  }
