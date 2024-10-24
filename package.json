@@ -42,7 +42,7 @@
     "node-fetch": "^3.3.2",
     "openai": "^4.28.4",
     "pm2": "^5.3.1",
-    "puppeteer": "^21.11.0",
+    "puppeteer": "^23.6.0",
     "sourcebin_js": "^0.0.3-ignore",
     "topgg-autoposter": "^2.0.2",
     "wikijs": "^6.4.1",
