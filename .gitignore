@@ -5,3 +5,5 @@ node_modules
 .tickets
 Private
 .music
+package-lock.json
+package.json
